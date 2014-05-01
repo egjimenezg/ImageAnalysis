@@ -4,3 +4,9 @@
 *.jar
 *.war
 *.ear
+
+ImageAnalysis/.idea/
+ImageAnalysis/.project/
+ImageAnalysis/.classpath
+ImageAnalysis/ImageAnalysis.iml
+ImageAnalysis/ImageAnalysis-grailsPlugins.iml
