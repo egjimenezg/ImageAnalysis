@@ -7,7 +7,8 @@ class UrlMappings {
             }
         }
 
-        "/"(view:"/inicio")
+        //"/"(view:"/inicio")
+        "/"(controller: 'imageAnalysis',action:'index')
         "500"(view:'/error')
 	}
 }

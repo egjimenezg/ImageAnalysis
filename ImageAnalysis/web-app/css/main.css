@@ -36,6 +36,7 @@ html.no-cssgradients {
 body {
 	background: #ffffff;
 	color: #333333;
+    height: 100%;
 	overflow-x: hidden; /* prevents box-shadow causing a horizontal scrollbar in firefox when viewport < 960px wide */
 	   -moz-box-shadow: 0 0 0.3em #255b17;
 	-webkit-box-shadow: 0 0 0.3em #255b17;
@@ -67,7 +68,7 @@ a:hover, a:active {
 	outline: none; /* prevents outline in webkit on active links but retains it for tab focus */
 }
 
-h1 {
+h1.grails {
 	color: #48802c;
 	font-weight: normal;
 	font-size: 1.25em;
@@ -470,13 +471,14 @@ th.desc a {
 	background: #ffffff;
 }
 
+/*
 th:hover, tr:hover {
 	background: #E1F2B6;
-}
+} */
 
 /* PAGINATION */
 
-.pagination {
+.paginationg {
 	border-top: 0;
 	margin: 0;
 	padding: 0.3em 0.2em;
@@ -487,8 +489,8 @@ th:hover, tr:hover {
 	background-color: #EFEFEF;
 }
 
-.pagination a,
-.pagination .currentStep {
+.paginationg a,
+.paginationg .currentStep {
 	color: #666666;
 	display: inline-block;
 	margin: 0 0.1em;
@@ -499,16 +501,16 @@ th:hover, tr:hover {
 	        border-radius: 0.3em;
 }
 
-.pagination a:hover, .pagination a:focus,
-.pagination .currentStep {
+.paginationg a:hover, .paginationg a:focus,
+.paginationg .currentStep {
 	background-color: #999999;
 	color: #ffffff;
 	outline: none;
 	text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8);
 }
 
-.no-borderradius .pagination a:hover, .no-borderradius .pagination a:focus,
-.no-borderradius .pagination .currentStep {
+.no-borderradius .paginationg a:hover, .no-borderradius .paginationg a:focus,
+.no-borderradius .paginationg .currentStep {
 	background-color: transparent;
 	color: #444444;
 	text-decoration: underline;
@@ -591,6 +593,15 @@ a.skip {
 }
 
 .imagen{
-    width:300px;
+    padding: 4px;
+    line-height: 1.42857143;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    -webkit-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+    display: inline-block;
+    max-width: 100%;
     height:300px;
+    width:300px;
 }

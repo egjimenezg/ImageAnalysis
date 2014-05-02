@@ -10,3 +10,4 @@ ImageAnalysis/.project/
 ImageAnalysis/.classpath
 ImageAnalysis/ImageAnalysis.iml
 ImageAnalysis/ImageAnalysis-grailsPlugins.iml
+ImageAnalysis/target/
