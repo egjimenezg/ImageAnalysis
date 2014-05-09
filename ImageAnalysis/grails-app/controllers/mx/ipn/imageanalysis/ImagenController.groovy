@@ -12,19 +12,21 @@ class ImagenController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
+    def imagenService
+
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         respond Imagen.list(params), model:[imagenInstanceCount: Imagen.count()]
     }
 
     def showImageFromDatabase(){
-        println "Id " + params.id
         def imagen = Imagen.findById(new Integer(params.id))
         def imageBytes = imagen.file
         response.outputStream << imageBytes
     }
 
     def show(Imagen imagenInstance) {
+        session.imageBytes = imagenInstance.file
         respond imagenInstance
     }
 
@@ -48,7 +50,7 @@ class ImagenController {
 
         request.withFormat {
             form {
-                flash.message = message(code: 'default.created.message', args: [message(code: 'imagenInstance.label', default: 'Imagen'), imagenInstance.id])
+                flash.message = message(code: 'default.created.message', args: [message(code: 'imagenInstance.label', default: 'Imagenj'), imagenInstance.id])
                 redirect imagenInstance
             }
             '*' { respond imagenInstance, [status: CREATED] }
@@ -77,7 +79,7 @@ class ImagenController {
 
         request.withFormat {
             form {
-                flash.message = message(code: 'default.updated.message', args: [message(code: 'Imagen.label', default: 'Imagen'), imagenInstance.id])
+                flash.message = message(code: 'default.updated.message', args: [message(code: 'Imagenj.label', default: 'Imagenj'), imagenInstance.id])
                 redirect imagenInstance
             }
             '*'{ respond imagenInstance, [status: OK] }
@@ -96,7 +98,7 @@ class ImagenController {
 
         request.withFormat {
             form {
-                flash.message = message(code: 'default.deleted.message', args: [message(code: 'Imagen.label', default: 'Imagen'), imagenInstance.id])
+                flash.message = message(code: 'default.deleted.message', args: [message(code: 'Imagenj.label', default: 'Imagenj'), imagenInstance.id])
                 redirect action:"index", method:"GET"
             }
             '*'{ render status: NO_CONTENT }
@@ -106,7 +108,7 @@ class ImagenController {
     protected void notFound() {
         request.withFormat {
             form {
-                flash.message = message(code: 'default.not.found.message', args: [message(code: 'imagenInstance.label', default: 'Imagen'), params.id])
+                flash.message = message(code: 'default.not.found.message', args: [message(code: 'imagenInstance.label', default: 'Imagenj'), params.id])
                 redirect action: "index", method: "GET"
             }
             '*'{ render status: NOT_FOUND }
@@ -118,11 +120,9 @@ class ImagenController {
         /*if(f.empty){
             flash.message
         } */
-        //file.transferTo(new File('/users/gamaliel/Documents/Imagen.bmp'))
+        //file.transferTo(new File('/users/gamaliel/Documents/Imagenj.bmp'))
         def entrada = new ByteArrayInputStream(file.getBytes())
         def image = ImageIO.read(entrada)
-        byte[] matrizBinaria = new byte[image.getHeight()*image.getWidth()*3]
-        int x = 0
 
         image.getHeight().times{ i->
             image.getWidth().times{ j->
@@ -130,7 +130,6 @@ class ImagenController {
                 int green = c.green
                 int red = c.red
                 int blue = c.blue
-
                 /*
                 if(green <= 128 && red <= 128 && blue <= 128){
                     image.setRGB(j,i,new Color(0,0,0).getRGB())
@@ -143,21 +142,19 @@ class ImagenController {
                 gray = (gray << 8) + c.green
                 gray = (gray << 8) + c.green
                 */
-
                 image.setRGB(j,i,new Color(green,green,green).getRGB())
             }
         }
 
-        def imageOutput = new BufferedImage(image.getHeight(),image.getWidth(),BufferedImage.TYPE_BYTE_BINARY)
+
 
          //InputStream entrance = new ByteArrayInputStream(matrizBinaria)
          //image = ImageIO.read(entrance)
-         ImageIO.write(image,"bmp",new File('/users/gamaliel/Documents/Imagen.bmp'))
+         ImageIO.write(image,"bmp",new File('/users/gamaliel/Documents/Imagenj.bmp'))
          def img = new Imagen(params)
 
 
         render 'Ya esta lo primero'
     }
-
 
 }

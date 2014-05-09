@@ -3,7 +3,7 @@
 <html>
 	<head>
 		<meta name="layout" content="main">
-		<g:set var="entityName" value="${message(code: 'imagen.label', default: 'Imagen')}" />
+		<g:set var="entityName" value="${message(code: 'imagen.label', default: 'mx.ipn.imageanalysis.utils.Imagen')}" />
 		<title><g:message code="default.list.label" args="[entityName]" /></title>
 	</head>
 	<body>

@@ -1,32 +1,30 @@
+<%@ page import="org.apache.commons.codec.binary.Base64; mx.ipn.imageanalysis.Imagen" %>
 
-<%@ page import="mx.ipn.imageanalysis.Imagen" %>
 <!DOCTYPE html>
 <html>
 	<head>
 		<meta name="layout" content="main">
-		<title><g:message code="default.show.label" args="[entityName]" /></title>
         <g:set var="entityName" value="${message(code: 'imagen.label', default: 'Imagen')}" />
+        <title><g:message code="default.show.label" args="[entityName]" /></title>
         <r:require modules="jqueryLibrary, indexResources"/>
 	</head>
 	<body>
     <div style="padding:0 15px;">
             <div class="row">
-                <div class="col-lg-3">
-                    <g:uploadForm controller="Imagen" action="upload">
-                        <div class="list-group">
-                            <span class="list-group-item active">
-                                Operaciones sobre im&aacutegen
-                            </span>
-                            <div class="btn-group-vertical">
-
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                <div class="col-lg-3" style="padding: 0">
+                    <div class="list-group">
+                        <span class="list-group-item active" style="width:100%;">
+                            Operaciones sobre im&aacutegen
+                        </span>
+                        <div class="btn-group-vertical">          
+                            <div class="btn-group">
+                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" >
                                         Operaciones puntuales
                                         <span class="caret"></span>
                                     </button>
                                     <ul class="dropdown-menu" style="width: 100%">
-                                        <li><a href="#" class="subMenu">Negativo de una im&aacutegen</a></li>
-                                        <li><a href="#" class="subMenu">Conversi&oacuten a nivel de gris</a></li>
+                                        <li><g:link controller="operacionPuntual" >Negativo de una im&aacutegen</g:link></li>
+                                        <li><a href="#" class="imagen">Conversi&oacuten a nivel de gris</a></li>
                                     </ul>
                                 </div>
 
@@ -41,10 +39,8 @@
                                     </ul>
                                 </div>
                             </div>
-                        </div>
-                    </g:uploadForm>
+                    </div>                    
                 </div>
-
                 <div class="col-md-4">
                     <p>Im&aacutegen original</p>
                     <g:if test="${flash.message}">
@@ -59,11 +55,9 @@
 
                 <div class="col-md-4">
                     <p>Im&aacutegen procesada</p>
-                    <g:if test="${imagenProcesada}">
-                        <div>
-                            <img src="${createLink(controller:'imagen',action:'showImageFromDatabase',params:[id:imagenProcesada?.id])}"/>
-                        </div>
-                    </g:if>
+                    <div>
+
+                    </div>
                 </div>
 
             </div>

@@ -23,7 +23,7 @@
                 </div>
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <li><g:link controller="imagen" action="create">Agregar imagen</g:link></li>
+                        <li><g:link controller="imagen" action="create">Nueva im&aacutegen</g:link></li>
                     </ul>
                 </div>
             </div>

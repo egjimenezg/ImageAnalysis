@@ -27,7 +27,6 @@
 			</g:hasErrors>
             <g:uploadForm controller="Imagen" action="save">
             <div style="padding: 10px 10px 10px 10px">
-
                     <div class="row">
                         <div class="col-lg-3" style="margin-left: 40px;">
 
