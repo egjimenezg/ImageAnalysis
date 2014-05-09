@@ -23,6 +23,10 @@ modules = {
         resource url:'js/application/index.js'
     }
 
+    showImageLibraries{
+        resource url:'js/application/imagen.js'
+    }
+
 }
 
 def getFilesFromPath(def path){

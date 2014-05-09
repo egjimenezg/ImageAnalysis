@@ -25,7 +25,7 @@ class ImagenController {
         response.outputStream << imageBytes
     }
 
-    def show(Imagen imagenInstance) {
+    def show(Imagen imagenInstance){
         session.imageBytes = imagenInstance.file
         respond imagenInstance
     }

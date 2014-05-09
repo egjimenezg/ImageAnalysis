@@ -6,7 +6,7 @@
 		<meta name="layout" content="main">
         <g:set var="entityName" value="${message(code: 'imagen.label', default: 'Imagen')}" />
         <title><g:message code="default.show.label" args="[entityName]" /></title>
-        <r:require modules="jqueryLibrary, indexResources"/>
+        <r:require modules="jqueryLibrary,showImageLibraries"/>
 	</head>
 	<body>
     <div style="padding:0 15px;">
@@ -22,9 +22,10 @@
                                         Operaciones puntuales
                                         <span class="caret"></span>
                                     </button>
-                                    <ul class="dropdown-menu" style="width: 100%">
-                                        <li><g:link controller="operacionPuntual" >Negativo de una im&aacutegen</g:link></li>
-                                        <li><a href="#" class="imagen">Conversi&oacuten a nivel de gris</a></li>
+                                    <ul class="dropdown-menu operacionPuntual" style="width: 100%">
+                                        <li><a href="#" id="getNegativeImage">Negativo de una im&aacutegen</a></li>
+                                        <li><a href="#" id="getGrayScaleImage">Conversi&oacuten a nivel de gris</a></li>
+                                        <li><a href="#" id="getBinaryImage">Im&oacutegen binaria</a></li>
                                     </ul>
                                 </div>
 
@@ -55,7 +56,7 @@
 
                 <div class="col-md-4">
                     <p>Im&aacutegen procesada</p>
-                    <div>
+                    <div id="imagenProcesada">
 
                     </div>
                 </div>
