@@ -11,3 +11,6 @@ ImageAnalysis/.classpath
 ImageAnalysis/ImageAnalysis.iml
 ImageAnalysis/ImageAnalysis-grailsPlugins.iml
 ImageAnalysis/target/
+
+build-ImageAnalysisC-Desktop_Qt_5_3_clang_64bit-Debug/
+.DS_Store
