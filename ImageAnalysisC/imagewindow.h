@@ -8,6 +8,7 @@ class QLabel;
 class QMenu;
 class QScrollArea;
 class QScrollBar;
+class QPushButton;
 
 class ImageWindow : public QMainWindow
 {
@@ -19,15 +20,20 @@ class ImageWindow : public QMainWindow
 
   private slots:
     void openImage();
+    void convertToRed();
 
   private:
     void createActions();
     void createMenuBar();
     QLabel *imageLabel;
-    QScrollArea *scrollArea;
-    QMenu *fileMenu;
+    QScrollArea* scrollArea;
+    QMenu* fileMenu;
+    QImage* image;
+    QPushButton *changeColor;
+
     /*Actions of the menu*/
     QAction *openAction;
+    QAction *changeRed;
 
 };
 
