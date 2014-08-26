@@ -26,11 +26,11 @@ class ImageWindow : public QMainWindow
     void createActions();
     void createMenuBar();
     QLabel *imageLabel;
+    QLabel *imageResult;
     QScrollArea* scrollArea;
     QMenu* fileMenu;
     QImage* image;
     QPushButton *changeColor;
-
     /*Actions of the menu*/
     QAction *openAction;
     QAction *changeRed;
