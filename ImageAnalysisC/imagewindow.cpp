@@ -27,11 +27,11 @@ ImageWindow::ImageWindow(){
   practice2Button = new QPushButton("&Práctica 2",this);
   practice2Button->setGeometry(QRect(QPoint(120,400),QSize(100,50)));
   practice3Button = new QPushButton("&Práctica 3",this);
-  practice3Button->setGeometry(QRect(QPoint(220,400),QSize(100,50)));
+  practice3Button->setGeometry(QRect(QPoint(230,400),QSize(100,50)));
   practice4Button = new QPushButton("&Práctica 4",this);
-  practice4Button->setGeometry(QRect(QPoint(320,400),QSize(100,50)));
+  practice4Button->setGeometry(QRect(QPoint(340,400),QSize(100,50)));
   practice5Button = new QPushButton("&Práctica 5",this);
-  practice5Button->setGeometry(QRect(QPoint(420,400),QSize(100,50)));
+  practice5Button->setGeometry(QRect(QPoint(450,400),QSize(100,50)));
 
   createActions();
   createMenuBar();
@@ -188,12 +188,16 @@ void ImageWindow::practice4(){
 void ImageWindow::practice5(){
   QRgb value;
   QImage* img = new QImage(image->width(),image->height(),QImage::Format_RGB32);
+  QColor* currentColor;
 
   for(int y=0;y<img->height();y++){
     for(int x=0;x<img->width();x++){
-      QColor currentColor(image->pixel(x,y));
+      currentColor = new QColor(image->pixel(x,y));
+      if((x<img->width()/3 || x>(img->width()/3)*2) && (y<image->height()/3 || y>(image->height()/3)*2))
+        value = qRgb(currentColor->red(),0,0);
+      else
+        value = qRgb(0,0,currentColor->blue());
 
-      value = qRgb(currentColor.red(),currentColor.green(),currentColor.blue());
       img->setPixel(x,y,value);
     }
   }
