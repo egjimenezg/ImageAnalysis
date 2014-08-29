@@ -22,8 +22,10 @@ ImageWindow::ImageWindow(){
   imageResult->setParent(this);
 
 
-  changeColor = new QPushButton("&Práctica 1",this);
-  changeColor->setGeometry(QRect(QPoint(10,400),QSize(100,50)));
+  practice1Button = new QPushButton("&Práctica 1",this);
+  practice1Button->setGeometry(QRect(QPoint(10,400),QSize(100,50)));
+  practice2Button = new QPushButton("&Práctica 2",this);
+  practice2Button->setGeometry(QRect(QPoint(120,400),QSize(100,50)));
 
   createActions();
   createMenuBar();
@@ -38,7 +40,8 @@ void ImageWindow::createActions(){
   openAction = new QAction(tr("Abrir"),this);
   openAction->setShortcut(tr("Ctrl+A"));
   connect(openAction, SIGNAL(triggered()), this, SLOT(openImage()));
-  connect(changeColor,SIGNAL(released()), this, SLOT(practice1()));
+  connect(practice1Button,SIGNAL(released()), this, SLOT(practice1()));
+  connect(practice2Button,SIGNAL(released()), this, SLOT(practice2()));
 
 }
 
@@ -79,12 +82,12 @@ void ImageWindow::practice1(){
         value = qRgb(currentColor.red(),0,0);
         img->setPixel(x,y,value);
       }
-      else if(x<image->width() && y>image->height()){
+      else if(x<image->width() && y>=image->height()){
         QColor currentColor(image->pixel(x,y-image->height()));
         value = qRgb(0,currentColor.green(),0);
         img->setPixel(x,y,value);
       }
-      else if(x>image->width() && y>image->height()){
+      else if(x>=image->width() && y>=image->height()){
         QColor currentColor(image->pixel(x-image->width(),y-image->height()));
         value = qRgb(0,0,currentColor.blue());
         img->setPixel(x,y,value);
@@ -96,18 +99,35 @@ void ImageWindow::practice1(){
   imageResult->adjustSize();
 }
 
-void ImageWindow::convertToRed(){
-
+void ImageWindow::practice2(){
   QRgb value;
+  QImage* img = new QImage(image->width(),image->height()*4,QImage::Format_RGB32);
 
-  for(int y=0;y<image->height();y++){
-    for(int x=0;x<image->width();x++){
-        QColor clrCurrent( image->pixel(x,y));
-        value = qRgb(clrCurrent.red(),0,0);
-        image->setPixel(x,y,value);
+  for(int y=0;y<img->height();y++){
+    for(int x=0;x<img->width();x++){
+      if(y<image->height()){
+        QColor currentColor(image->pixel(x,y));
+        value = qRgb(currentColor.red(),currentColor.green(),currentColor.blue());
+        img->setPixel(x,y,value);
+      }
+      else if(y<image->height()*2){
+        QColor currentColor(image->pixel(x,y-image->height()));
+        value = qRgb(currentColor.red(),0,0);
+        img->setPixel(x,y,value);
+      }
+      else if(y<image->height()*3){
+        QColor currentColor(image->pixel(x,y-(image->height()*2)));
+        value = qRgb(0,currentColor.green(),0);
+        img->setPixel(x,y,value);
+      }
+      else{
+        QColor currentColor(image->pixel(x,y-image->height()*3));
+        value = qRgb(0,0,currentColor.blue());
+        img->setPixel(x,y,value);
+      }
     }
   }
 
-  imageResult->setPixmap(QPixmap::fromImage(*image));
+  imageResult->setPixmap(QPixmap::fromImage(*img));
   imageResult->adjustSize();
 }
