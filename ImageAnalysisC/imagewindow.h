@@ -21,7 +21,7 @@ class ImageWindow : public QMainWindow
   private slots:
     void openImage();
     void practice1();
-    void convertToRed();
+    void practice2();
 
   private:
     void createActions();
@@ -31,7 +31,12 @@ class ImageWindow : public QMainWindow
     QScrollArea* scrollArea;
     QMenu* fileMenu;
     QImage* image;
-    QPushButton *changeColor;
+    QPushButton *practice1Button;
+    QPushButton *practice2Button;
+    QPushButton *practice3Button;
+    QPushButton *practice4Button;
+    QPushButton *practice5Button;
+    QPushButton *practice6Button;
     /*Actions of the menu*/
     QAction *openAction;
     QAction *changeRed;

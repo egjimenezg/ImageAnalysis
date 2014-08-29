@@ -22,7 +22,7 @@ Proyecto de Análisis de Imágenes
 
 **Filtros**
 - De orden
- - Media
+ - Mediana
  - Moda
  - Mediana
  - Máximo
