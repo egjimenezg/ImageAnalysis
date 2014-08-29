@@ -20,6 +20,7 @@ class ImageWindow : public QMainWindow
 
   private slots:
     void openImage();
+    void practice1();
     void convertToRed();
 
   private:
