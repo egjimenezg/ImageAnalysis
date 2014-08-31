@@ -26,7 +26,8 @@ class ImageWindow : public QMainWindow
     void practice4();
     void practice5();
     void convertToCian();
-
+    void convertToMagenta();
+    void converToYellow();
 
   private:
     void createActions();
@@ -43,6 +44,8 @@ class ImageWindow : public QMainWindow
     QPushButton *practice5Button;
     QPushButton *practice6Button;
     QPushButton *cyanButton;
+    QPushButton *magentaButton;
+    QPushButton *yellowButton;
     /*Actions of the menu*/
     QAction *openAction;
     QAction *changeRed;
