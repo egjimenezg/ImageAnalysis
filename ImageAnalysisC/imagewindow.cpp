@@ -32,6 +32,8 @@ ImageWindow::ImageWindow(){
   practice4Button->setGeometry(QRect(QPoint(340,400),QSize(100,50)));
   practice5Button = new QPushButton("&Práctica 5",this);
   practice5Button->setGeometry(QRect(QPoint(450,400),QSize(100,50)));
+  cyanButton = new QPushButton("&Cian",this);
+  cyanButton->setGeometry(QRect(QPoint(560,400),QSize(100,50)));
 
   createActions();
   createMenuBar();
@@ -51,6 +53,7 @@ void ImageWindow::createActions(){
   connect(practice3Button,SIGNAL(released()), this, SLOT(practice3()));
   connect(practice4Button,SIGNAL(released()), this, SLOT(practice4()));
   connect(practice5Button,SIGNAL(released()), this, SLOT(practice5()));
+  connect(cyanButton,SIGNAL(released()), this, SLOT(convertToCian()));
 
 }
 
@@ -205,3 +208,22 @@ void ImageWindow::practice5(){
   imageResult->setPixmap(QPixmap::fromImage(*img));
   imageResult->adjustSize();
 }
+
+void ImageWindow::convertToCian(){
+  QRgb value;
+  QImage* img = new QImage(image->width(),image->height(),QImage::Format_RGB32);
+  QColor* currentColor;
+
+  for(int y=0;y<img->height();y++){
+    for(int x=0;x<img->width();x++){
+      currentColor = new QColor(image->pixel(x,y));
+      value = qRgb(0,currentColor->green(),currentColor->blue());
+      img->setPixel(x,y,value);
+    }
+  }
+
+  imageResult->setPixmap(QPixmap::fromImage(*img));
+  imageResult->adjustSize();
+
+}
+
