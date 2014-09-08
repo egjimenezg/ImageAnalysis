@@ -13,8 +13,7 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        imagewindow.cpp \
-        qcustomplot.cpp
+        imagewindow.cpp
 
-HEADERS  += imagewindow.h \
-    qcustomplot.h
+
+HEADERS  += imagewindow.h
