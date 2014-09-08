@@ -6,7 +6,7 @@
 
 QT       += core gui
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets printsupport
 
 TARGET = ImageAnalysisC
 TEMPLATE = app
@@ -14,7 +14,7 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         imagewindow.cpp \
-    qcustomplot.cpp
+        qcustomplot.cpp
 
 HEADERS  += imagewindow.h \
     qcustomplot.h

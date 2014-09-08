@@ -2,6 +2,7 @@
 #define IMAGEWINDOW_H
 
 #include <QMainWindow>
+#include "qcustomplot.h"
 
 class QAction;
 class QLabel;
@@ -46,6 +47,7 @@ class ImageWindow : public QMainWindow
     QPushButton *cyanButton;
     QPushButton *magentaButton;
     QPushButton *yellowButton;
+
     /*Actions of the menu*/
     QAction *openAction;
     QAction *changeRed;
