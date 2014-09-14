@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1200</width>
-    <height>719</height>
+    <width>1600</width>
+    <height>733</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,15 +19,21 @@
      <rect>
       <x>10</x>
       <y>10</y>
-      <width>371</width>
-      <height>261</height>
+      <width>240</width>
+      <height>240</height>
      </rect>
     </property>
     <property name="maximumSize">
      <size>
-      <width>400</width>
-      <height>400</height>
+      <width>280</width>
+      <height>280</height>
      </size>
+    </property>
+    <property name="autoFillBackground">
+     <bool>true</bool>
+    </property>
+    <property name="lineWidth">
+     <number>86</number>
     </property>
     <property name="text">
      <string/>
@@ -36,88 +42,163 @@
      <bool>true</bool>
     </property>
    </widget>
-   <widget class="QPushButton" name="canalRButton">
+   <widget class="QLineEdit" name="max">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>500</y>
+      <width>61</width>
+      <height>21</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="expandirButton">
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>440</y>
-      <width>121</width>
+      <y>540</y>
+      <width>114</width>
       <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Expandir</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="contraerButton">
+    <property name="geometry">
+     <rect>
+      <x>180</x>
+      <y>540</y>
+      <width>114</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Contraer</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="min">
+    <property name="geometry">
+     <rect>
+      <x>100</x>
+      <y>500</y>
+      <width>61</width>
+      <height>21</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>480</y>
+      <width>62</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>CMax</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>100</x>
+      <y>480</y>
+      <width>51</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>CMin</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="imager">
+    <property name="geometry">
+     <rect>
+      <x>280</x>
+      <y>10</y>
+      <width>240</width>
+      <height>240</height>
+     </rect>
+    </property>
+    <property name="autoFillBackground">
+     <bool>true</bool>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="imageg">
+    <property name="geometry">
+     <rect>
+      <x>530</x>
+      <y>10</y>
+      <width>240</width>
+      <height>240</height>
+     </rect>
+    </property>
+    <property name="autoFillBackground">
+     <bool>true</bool>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="imageb">
+    <property name="geometry">
+     <rect>
+      <x>780</x>
+      <y>10</y>
+      <width>240</width>
+      <height>240</height>
+     </rect>
+    </property>
+    <property name="autoFillBackground">
+     <bool>true</bool>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_3">
+    <property name="geometry">
+     <rect>
+      <x>360</x>
+      <y>250</y>
+      <width>51</width>
+      <height>16</height>
      </rect>
     </property>
     <property name="text">
      <string>Canal R</string>
     </property>
-    <property name="autoRepeat">
-     <bool>false</bool>
-    </property>
-    <property name="autoExclusive">
-     <bool>false</bool>
-    </property>
-    <property name="autoDefault">
-     <bool>false</bool>
-    </property>
-    <property name="default">
-     <bool>false</bool>
-    </property>
-    <property name="flat">
-     <bool>false</bool>
-    </property>
    </widget>
-   <widget class="QPushButton" name="canalBButton">
+   <widget class="QLabel" name="label_4">
     <property name="geometry">
      <rect>
-      <x>260</x>
-      <y>440</y>
-      <width>121</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Canal B</string>
-    </property>
-    <property name="autoRepeat">
-     <bool>false</bool>
-    </property>
-    <property name="autoExclusive">
-     <bool>false</bool>
-    </property>
-    <property name="autoDefault">
-     <bool>false</bool>
-    </property>
-    <property name="default">
-     <bool>false</bool>
-    </property>
-    <property name="flat">
-     <bool>false</bool>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="canalGButton">
-    <property name="geometry">
-     <rect>
-      <x>130</x>
-      <y>440</y>
-      <width>121</width>
-      <height>41</height>
+      <x>630</x>
+      <y>250</y>
+      <width>51</width>
+      <height>16</height>
      </rect>
     </property>
     <property name="text">
      <string>Canal G</string>
     </property>
-    <property name="autoRepeat">
-     <bool>false</bool>
+   </widget>
+   <widget class="QLabel" name="label_5">
+    <property name="geometry">
+     <rect>
+      <x>850</x>
+      <y>250</y>
+      <width>51</width>
+      <height>16</height>
+     </rect>
     </property>
-    <property name="autoExclusive">
-     <bool>false</bool>
-    </property>
-    <property name="autoDefault">
-     <bool>false</bool>
-    </property>
-    <property name="default">
-     <bool>false</bool>
-    </property>
-    <property name="flat">
-     <bool>false</bool>
+    <property name="text">
+     <string>Canal B</string>
     </property>
    </widget>
   </widget>
@@ -126,7 +207,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1200</width>
+     <width>1600</width>
      <height>22</height>
     </rect>
    </property>
