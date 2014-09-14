@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "qcustomplot.h"
+#include "image.h"
 
 namespace Ui {
 class MainWindow;
@@ -21,17 +22,18 @@ public:
 private slots:
     void openImage();
     void initializePlot();
-    void createHistograma(int i);
+    void createHistogram(int i);
+    void expandHistogram();
     void initializeVectorValues();
 
+
 private:
-    Ui::MainWindow *ui;
-    QImage* image;
+    Ui::MainWindow *ui;    
     QCustomPlot *qcustomplot;
     QCPBars* bars2;
     QSignalMapper mapper;
+    Image* image;
     void createActions();
-
 };
 
 #endif // MAINWINDOW_H
