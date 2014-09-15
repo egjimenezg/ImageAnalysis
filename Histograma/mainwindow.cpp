@@ -8,9 +8,10 @@ using namespace std;
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow){
-  ui->setupUi(this);
-  /*initializePlot();*/
+  ui->setupUi(this);  
   createActions();
+  image = new Image();
+
 }
 
 MainWindow::~MainWindow(){
@@ -20,56 +21,37 @@ MainWindow::~MainWindow(){
 void MainWindow::openImage(){
   QString fileName = QFileDialog::getOpenFileName(this,tr("Abrir imagen"),QDir::currentPath());
   if(!fileName.isEmpty()){
-    QImage* image = new QImage(fileName);
-    if(image->isNull()){
+    QImage* img = new QImage(fileName);
+    if(img->isNull()){
       QMessageBox::information(this,tr("Image"),tr("El archivo %1 no es una imagen").arg(fileName));
       return;
     }
-
-    ui->imagew->setPixmap(QPixmap::fromImage(*image));
+    image->setImage(img);
+    ui->imagew->setPixmap(QPixmap::fromImage(*img));
     ui->imagew->adjustSize();
-
+    setRGBImages();
+    initializeHistograms();
   }
 }
 
-
-void MainWindow::initializePlot(){
-  qcustomplot = new QCustomPlot(this);
-  qcustomplot->setGeometry(600,20,300,300);
-  qcustomplot->xAxis->setLabel("x");
-  qcustomplot->yAxis->setLabel("y");
-
-  bars2 = new QCPBars(qcustomplot->xAxis, qcustomplot->yAxis);
-  bars2->setWidth(2);
-  bars2->setPen(Qt::NoPen);
-  bars2->setBrush(QColor(0, 0, 255, 255));
-  qcustomplot->addPlottable(bars2);
+void MainWindow::setRGBImages(){
+  ui->imager->setPixmap(QPixmap::fromImage(image->getRGBImage('R')));
+  ui->imager->adjustSize();
+  ui->imageg->setPixmap(QPixmap::fromImage(image->getRGBImage('G')));
+  ui->imageg->adjustSize();
+  ui->imageb->setPixmap(QPixmap::fromImage(image->getRGBImage('B')));
+  ui->imageb->adjustSize();
 }
 
-void MainWindow::createHistogram(int option){
+void MainWindow::initializeHistograms(){
+  histogramas = new Histogram*[3];
+  histogramas[0] = new Histogram(this,280,280);
+  histogramas[1] = new Histogram(this,600,280);
+  histogramas[2] = new Histogram(this,910,280);
 
-  initializeVectorValues();
-  /*
-  for(int i=0;i<image->height();i++){
-    for(int j=0;j<image->width();j++){
-      color = new QColor(image->pixel(j,i));
-      switch(option){
-        case 0:
-          y[color->red()]++;
-        break;
-        case 1:
-          y[color->green()]++;
-        break;
-        case 2:
-            y[color->blue()]++;
-        break;
-      }
-    }
-  }
-*/
-  bars2->setData(x, y);  
-  qcustomplot->rescaleAxes();
-  qcustomplot->replot();
+  histogramas[0]->createHistogramForChanelOfTheImage(image,'G');
+  histogramas[1]->createHistogramForChanelOfTheImage(image,'R');
+  histogramas[2]->createHistogramForChanelOfTheImage(image,'B');
 }
 
 void MainWindow::expandHistogram(){
@@ -87,15 +69,6 @@ void MainWindow::expandHistogram(){
   }*/
 }
 
-void MainWindow::initializeVectorValues(){
-  x = QVector<double>(256);
-  y = QVector<double>(256);
-
-  for(int i=0;i<256;i++){
-    x[i] = i;
-    y[i] = 0;
-  }
-}
 
 void MainWindow::createActions(){
 
@@ -113,4 +86,8 @@ void MainWindow::createActions(){
 
   connect(&mapper, SIGNAL(mapped(int)), this, SLOT(createHistogram(int)));
   */
+}
+
+void MainWindow::createHistogramsForEachChannel(){
+
 }

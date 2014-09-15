@@ -15,10 +15,12 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     qcustomplot.cpp \
-    image.cpp
+    image.cpp \
+    histogram.cpp
 
 HEADERS  += mainwindow.h \
     qcustomplot.h \
-    image.h
+    image.h \
+    histogram.h
 
 FORMS    += mainwindow.ui
