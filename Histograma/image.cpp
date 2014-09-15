@@ -1,14 +1,22 @@
 #include "image.h"
 #include <QMainWindow>
+#include <iostream>
 
 using namespace std;
 
-Image::Image(){
+Image::Image(){  
   H = 0;
   W = 0;
 }
 
 Image::~Image(){
+
+  for(int y=0;y<H; y++){
+    delete red[y];
+    delete green[y];
+    delete blue[y];
+  }
+
   delete red;
   delete green;
   delete blue;
@@ -18,15 +26,20 @@ Image::~Image(){
 
 void Image::setImage(QImage* image){
   long x,y;
-  for(y=0;y<H;y++){
-    delete red[y];
-    delete green[y];
-    delete blue[y];
-  }
 
-  delete red;
-  delete green;
-  delete blue;
+  if(H>0){
+    for(y=0;y<H;y++){
+      delete red[y];
+      delete green[y];
+      delete blue[y];
+    }
+
+    delete red;
+    delete green;
+    delete blue;
+    delete maxValues;
+    delete minValues;
+  }
 
   H=image->height();
   W=image->width();
@@ -69,9 +82,6 @@ void Image::getImage(QImage *image){
 }
 
 void Image::initializeMinAndMaxValues(){
-  delete maxValues;
-  delete minValues;
-
   maxValues = new int[3];
   minValues = new int[3];
 
@@ -79,4 +89,47 @@ void Image::initializeMinAndMaxValues(){
     maxValues[i] = 0;
     minValues[i] = 0;
   }
+}
+
+QImage Image::getRGBImage(char option){
+  long x,y;
+  QImage qimage(W,H,QImage::Format_RGB32);
+
+  for(y=0;y<H;y++){
+    for(x=0;x<W;x++){
+      switch(option){
+        case 'R':
+          qimage.setPixel(x,y,qRgb(red[y][x],0,0));
+        break;
+        case 'G':
+          qimage.setPixel(x,y,qRgb(0,green[y][x],0));
+        break;
+        case 'B':
+          qimage.setPixel(x,y,qRgb(0,0,blue[y][x]));
+        break;
+      }
+    }
+  }
+
+  return qimage;
+}
+
+long Image::getH(){
+  return H;
+}
+
+long Image::getW(){
+  return W;
+}
+
+int Image::getRedValue(int y,int x){
+  return red[y][x];
+}
+
+int Image::getGreenValue(int y,int x){
+  return green[y][x];
+}
+
+int Image::getBlueValue(int y,int x){
+  return blue[y][x];
 }
