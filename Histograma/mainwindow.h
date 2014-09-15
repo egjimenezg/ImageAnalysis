@@ -2,8 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "qcustomplot.h"
 #include "image.h"
+#include "histogram.h"
 
 namespace Ui {
 class MainWindow;
@@ -16,24 +16,22 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
-    QVector<double> x;
-    QVector<double> y;
+    void setRGBImages();
+    void createHistogramsForEachChannel();
+
 
 private slots:
-    void openImage();
-    void initializePlot();
-    void createHistogram(int i);
+    void openImage();    
     void expandHistogram();
-    void initializeVectorValues();
-
 
 private:
-    Ui::MainWindow *ui;    
-    QCustomPlot *qcustomplot;
-    QCPBars* bars2;
+    Ui::MainWindow *ui;
     QSignalMapper mapper;
     Image* image;
+    Histogram** histogramas;
     void createActions();
+    void initializeHistograms();
+
 };
 
 #endif // MAINWINDOW_H
