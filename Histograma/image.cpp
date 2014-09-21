@@ -73,6 +73,7 @@ void Image::setImage(QImage* image){
 void Image::getImage(QImage *image){
   long x,y;
   QRgb value;
+
   for(y=0;y<image->height();y++){
     for(x=0;x<image->width();x++){
       value = qRgb(red[y][x],green[y][x],blue[y][x]);
@@ -133,3 +134,51 @@ int Image::getGreenValue(int y,int x){
 int Image::getBlueValue(int y,int x){
   return blue[y][x];
 }
+
+int** Image::getRed(){
+  return red;
+}
+
+void Image::setRed(int** matrix){
+  long x,y;
+  for(y=0;y<H;y++){
+    for(x=0;x<W;x++){
+       red[y][x] = matrix[y][x];
+    }
+  }
+}
+
+int** Image::getGreen(){
+  return green;
+}
+
+void Image::setGreen(int** matrix){
+  long x,y;
+  for(y=0;y<H;y++){
+    for(x=0;x<W;x++){
+      green[y][x] = matrix[y][x];
+    }
+  }
+}
+
+int** Image::getBlue(){
+  return blue;
+}
+
+void Image::setBlue(int** matrix){
+  long x,y;
+  for(y=0;y<H;y++){
+    for(x=0;x<W;x++){
+      blue[y][x] = matrix[y][x];
+    }
+  }
+}
+
+int* Image::getMaxVaules(){
+  return maxValues;
+}
+
+int* Image::getMinValues(){
+  return minValues;
+}
+
