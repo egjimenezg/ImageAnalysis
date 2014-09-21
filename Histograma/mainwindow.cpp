@@ -11,11 +11,10 @@ MainWindow::MainWindow(QWidget *parent) :
   ui->setupUi(this);  
   createActions();
   image = new Image();
-
 }
 
 MainWindow::~MainWindow(){
-    delete ui;
+  delete ui;
 }
 
 void MainWindow::openImage(){
@@ -54,40 +53,50 @@ void MainWindow::initializeHistograms(){
   histogramas[2]->createHistogramForChanelOfTheImage(image,'B');
 }
 
-void MainWindow::expandHistogram(){
-  /*int** matrix = new int*[image->height()];
+void MainWindow::expandHistogram(){  
+   QString channel = ui->comboBox->currentText();
+   QImage qimage(image->getW(),image->getH(),QImage::Format_RGB32);
+   if(channel=="Red")
+     histogramas[0]->expandHistogram(ui->max->text().toInt(),
+                                     ui->min->text().toInt(),
+                                     image,ui->comboBox->currentText());
+   else if(channel=="Green")
+     histogramas[1]->expandHistogram(ui->max->text().toInt(),
+                                    ui->min->text().toInt(),
+                                    image,ui->comboBox->currentText());
+   else
+     histogramas[2]->expandHistogram(ui->max->text().toInt(),
+                                      ui->min->text().toInt(),
+                                      image,ui->comboBox->currentText());
 
-  QColor* color;
 
-  for(int i=0;i<image->height();i++)
-    matrix[i] = new int[image->width()];
-
-  for(int y=0;y<image->height();y++){
-    for(int x=0;x<image->width();x++){
-      color = new QColor(image->pixel(x,y));
-    }
-  }*/
+   image->getImage(&qimage);
+   ui->imagew->setPixmap(QPixmap::fromImage(qimage));
 }
 
+void MainWindow::reduceHistogram(){
+  QString channel = ui->comboBox->currentText();
+  QImage qimage(image->getW(),image->getH(),QImage::Format_RGB32);
+
+  if(channel=="Red")
+    histogramas[0]->reduceHistogram(ui->max->text().toInt(),
+                                    ui->min->text().toInt(),
+                                    image,ui->comboBox->currentText());
+  else if(channel=="Green")
+    histogramas[1]->reduceHistogram(ui->max->text().toInt(),
+                                    ui->min->text().toInt(),
+                                    image,ui->comboBox->currentText());
+  else
+    histogramas[2]->reduceHistogram(ui->max->text().toInt(),
+                                    ui->min->text().toInt(),
+                                    image,ui->comboBox->currentText());
+  image->getImage(&qimage);
+  ui->imagew->setPixmap(QPixmap::fromImage(qimage));
+}
 
 void MainWindow::createActions(){
-
   connect(ui->actionOpen,SIGNAL(triggered()),this,SLOT(openImage()));
   connect(ui->expandirButton,SIGNAL(released()),this,SLOT(expandHistogram()));
-  /*
-  connect(ui->canalRButton,SIGNAL(released()),&mapper,SLOT(map()));
-  connect(ui->canalGButton,SIGNAL(released()),&mapper,SLOT(map()));
-  connect(ui->canalBButton,SIGNAL(released()),&mapper,SLOT(map()));
-
-  //connect(ui->contraerButton,SIGNAL(released()),this,SLOT(map()));
-  mapper.setMapping(ui->canalRButton,0);
-  mapper.setMapping(ui->canalGButton,1);
-  mapper.setMapping(ui->canalBButton,2);
-
-  connect(&mapper, SIGNAL(mapped(int)), this, SLOT(createHistogram(int)));
-  */
+  connect(ui->contraerButton,SIGNAL(released()),this,SLOT(reduceHistogram()));
 }
 
-void MainWindow::createHistogramsForEachChannel(){
-
-}
