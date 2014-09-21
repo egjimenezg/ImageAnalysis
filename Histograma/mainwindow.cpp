@@ -54,44 +54,19 @@ void MainWindow::initializeHistograms(){
 }
 
 void MainWindow::expandHistogram(){  
-   QString channel = ui->comboBox->currentText();
-   QImage qimage(image->getW(),image->getH(),QImage::Format_RGB32);
-   if(channel=="Red")
-     histogramas[0]->expandHistogram(ui->max->text().toInt(),
-                                     ui->min->text().toInt(),
-                                     image,ui->comboBox->currentText());
-   else if(channel=="Green")
-     histogramas[1]->expandHistogram(ui->max->text().toInt(),
-                                    ui->min->text().toInt(),
-                                    image,ui->comboBox->currentText());
-   else
-     histogramas[2]->expandHistogram(ui->max->text().toInt(),
-                                      ui->min->text().toInt(),
-                                      image,ui->comboBox->currentText());
-
-
-   image->getImage(&qimage);
-   ui->imagew->setPixmap(QPixmap::fromImage(qimage));
+   QString channel = ui->comboBox->currentText();   
+   int cmax = ui->max->text().toInt();
+   int cmin = ui->min->text().toInt();
+   histogramas[ui->comboBox->currentIndex()]->expandHistogram(cmax,cmin,image,channel);
+   ui->imagew->setPixmap(QPixmap::fromImage(image->getImage()));
 }
 
 void MainWindow::reduceHistogram(){
   QString channel = ui->comboBox->currentText();
-  QImage qimage(image->getW(),image->getH(),QImage::Format_RGB32);
-
-  if(channel=="Red")
-    histogramas[0]->reduceHistogram(ui->max->text().toInt(),
-                                    ui->min->text().toInt(),
-                                    image,ui->comboBox->currentText());
-  else if(channel=="Green")
-    histogramas[1]->reduceHistogram(ui->max->text().toInt(),
-                                    ui->min->text().toInt(),
-                                    image,ui->comboBox->currentText());
-  else
-    histogramas[2]->reduceHistogram(ui->max->text().toInt(),
-                                    ui->min->text().toInt(),
-                                    image,ui->comboBox->currentText());
-  image->getImage(&qimage);
-  ui->imagew->setPixmap(QPixmap::fromImage(qimage));
+  int cmax= ui->max->text().toInt();
+  int cmin= ui->max->text().toInt();
+  histogramas[ui->comboBox->currentIndex()]->reduceHistogram(cmax,cmin,image,channel);
+  ui->imagew->setPixmap(QPixmap::fromImage(image->getImage()));
 }
 
 void MainWindow::createActions(){

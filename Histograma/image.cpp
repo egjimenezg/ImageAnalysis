@@ -70,16 +70,19 @@ void Image::setImage(QImage* image){
   }
 }
 
-void Image::getImage(QImage *image){
+QImage Image::getImage(){
   long x,y;
+  QImage qimage(W,H,QImage::Format_RGB32);
   QRgb value;
 
-  for(y=0;y<image->height();y++){
-    for(x=0;x<image->width();x++){
+  for(y=0;y<H;y++){
+    for(x=0;x<W;x++){
       value = qRgb(red[y][x],green[y][x],blue[y][x]);
-      image->setPixel(x,y,value);
+      qimage.setPixel(x,y,value);
     }
   }
+
+  return qimage;
 }
 
 void Image::initializeMinAndMaxValues(){
