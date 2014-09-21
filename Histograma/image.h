@@ -16,7 +16,6 @@ class Image{
     /*Array with the lower values of each channel*/
     int* minValues;
 
-
   public:
     Image();
     ~Image();
@@ -25,11 +24,18 @@ class Image{
     void initializeMinAndMaxValues();
     long getH();
     long getW();
+    int* getMaxVaules();
+    int* getMinValues();
+    int** getRed();
+    void setRed(int**);
+    int** getGreen();
+    void setGreen(int**);
+    int** getBlue();
+    void setBlue(int**);
     int getRedValue(int,int);
     int getGreenValue(int,int);
     int getBlueValue(int,int);
     QImage getRGBImage(char);
-
 
 };
 
