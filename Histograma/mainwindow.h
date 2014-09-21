@@ -16,13 +16,12 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
-    void setRGBImages();
-    void createHistogramsForEachChannel();
-
+    void setRGBImages();    
 
 private slots:
     void openImage();    
     void expandHistogram();
+    void reduceHistogram();
 
 private:
     Ui::MainWindow *ui;
