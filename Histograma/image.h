@@ -20,7 +20,7 @@ class Image{
     Image();
     ~Image();
     void setImage(QImage*);
-    void getImage(QImage*);
+    QImage getImage();
     void initializeMinAndMaxValues();
     long getH();
     long getW();
