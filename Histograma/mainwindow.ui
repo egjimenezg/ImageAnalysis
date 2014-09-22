@@ -304,10 +304,16 @@
     <addaction name="actionMedia"/>
     <addaction name="actionMediana"/>
     <addaction name="actionSal_y_Pimienta"/>
-    <addaction name="actionGaussiano"/>
+   </widget>
+   <widget class="QMenu" name="menuRuido">
+    <property name="title">
+     <string>Ruido</string>
+    </property>
+    <addaction name="actionGaussiano_2"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuFiltros"/>
+   <addaction name="menuRuido"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -339,6 +345,11 @@
    </property>
   </action>
   <action name="actionGaussiano">
+   <property name="text">
+    <string>Gaussiano</string>
+   </property>
+  </action>
+  <action name="actionGaussiano_2">
    <property name="text">
     <string>Gaussiano</string>
    </property>

@@ -82,7 +82,16 @@ void MainWindow::reduceHistogram(){
 
 void MainWindow::createActions(){
   connect(ui->actionOpen,SIGNAL(triggered()),this,SLOT(openImage()));
+  connect(ui->actionMedia,SIGNAL(triggered()),this,SLOT(mediaFilter()));
   connect(ui->expandirButton,SIGNAL(released()),this,SLOT(expandHistogram()));
   connect(ui->contraerButton,SIGNAL(released()),this,SLOT(reduceHistogram()));
+
 }
 
+void MainWindow::mediaFilter(){
+  Image* image = new Image();
+  QImage img = ui->imagew->pixmap()->toImage();
+  image->setImage(&img);
+  image->mediaFilter();
+  ui->finalImage->setPixmap(QPixmap::fromImage(image->getImage()));
+}

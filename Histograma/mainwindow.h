@@ -22,6 +22,7 @@ private slots:
     void openImage();    
     void expandHistogram();
     void reduceHistogram();
+    void mediaFilter();
 
 private:
     Ui::MainWindow *ui;

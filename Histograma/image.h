@@ -2,6 +2,7 @@
 #define IMAGE_H
 #include <QMainWindow>
 #include <algorithm>
+#include <math.h>
 
 class Image{
 
@@ -35,6 +36,8 @@ class Image{
     int getGreenValue(int,int);
     int getBlueValue(int,int);
     QImage getRGBImage(char);
+    void mediaFilter();
+    int getMediaValueFromMask(int[3][3]);
 
 };
 
