@@ -126,6 +126,19 @@ long Image::getW(){
   return W;
 }
 
+int Image::getChannelValue(int y,int x,int channel){
+  switch(channel){
+    case 0:
+      return red[y][x];
+    case 1:
+      return green[y][x];
+    case 2:
+      return blue[y][x];
+    default:
+      return red[y][x];
+  }
+}
+
 int Image::getRedValue(int y,int x){
   return red[y][x];
 }
@@ -142,39 +155,33 @@ int** Image::getRed(){
   return red;
 }
 
-void Image::setRed(int** matrix){
+void Image::setChannel(int** matrix,int channel){
   long x,y;
+
   for(y=0;y<H;y++){
     for(x=0;x<W;x++){
-       red[y][x] = matrix[y][x];
+      switch(channel){
+        case 0:
+          red[y][x] = matrix[y][x];
+        break;
+        case 1:
+          green[y][x] = matrix[y][x];
+        break;
+        case 2:
+          blue[y][x] = matrix[y][x];
+        break;
+      }
     }
   }
+
 }
 
 int** Image::getGreen(){
   return green;
 }
 
-void Image::setGreen(int** matrix){
-  long x,y;
-  for(y=0;y<H;y++){
-    for(x=0;x<W;x++){
-      green[y][x] = matrix[y][x];
-    }
-  }
-}
-
 int** Image::getBlue(){
   return blue;
-}
-
-void Image::setBlue(int** matrix){
-  long x,y;
-  for(y=0;y<H;y++){
-    for(x=0;x<W;x++){
-      blue[y][x] = matrix[y][x];
-    }
-  }
 }
 
 int* Image::getMaxVaules(){

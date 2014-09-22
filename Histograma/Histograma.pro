@@ -4,6 +4,8 @@
 #
 #-------------------------------------------------
 
+QMAKE_MAC_SDK = macosx10.9
+
 QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets printsupport

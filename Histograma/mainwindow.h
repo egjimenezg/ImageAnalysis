@@ -16,7 +16,7 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
-    void setRGBImages();    
+    void setRGBImages(Image*);
 
 private slots:
     void openImage();    
@@ -27,6 +27,7 @@ private:
     Ui::MainWindow *ui;
     QSignalMapper mapper;
     Image* image;
+    Image* auxImage;
     Histogram** histogramas;
     void createActions();
     void initializeHistograms();

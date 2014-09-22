@@ -1,6 +1,8 @@
 #include "histogram.h"
 #include <iostream>
 
+using namespace std;
+
 Histogram::Histogram(QWidget* parent,int x,int y){
 
   qcustomPlot = new QCustomPlot(parent);
@@ -43,15 +45,17 @@ Histogram::Histogram(QWidget* parent,int x,int y){
 
   qcustomPlot->axisRect()->setBackground(axisRectGradient);
   qcustomPlot->setVisible(true);
+
+  this->x = QVector<double>(256);
+  this->frequencies = QVector<double>(256);
+
   initializeVectorValues();
 
 }
 
 Histogram::~Histogram(){}
 
-void Histogram::initializeVectorValues(){
-  x = QVector<double>(256);
-  frequencies = QVector<double>(256);
+void Histogram::initializeVectorValues(){  
 
   for(int i=0;i<256;i++){
     x[i] = i;
@@ -86,58 +90,42 @@ void Histogram::createHistogramForChanelOfTheImage(Image *image,char channel){
 
 }
 
-void Histogram::expandHistogram(int cmax,int cmin,Image* image,QString channel){
-    long i,j;
+void Histogram::expandHistogram(int cmax,int cmin,Image* image,Image* imageAux,int index){
+  long i,j;
 
-    int **expandedMatrix = new int*[image->getH()];
+  int **expandedMatrix = new int*[image->getH()];
 
-    for(i=0;i<image->getH();i++)
-      expandedMatrix[i]= new int[image->getW()];
+  for(i=0;i<image->getH();i++)
+    expandedMatrix[i]= new int[image->getW()];
 
-    for(i=0;i<image->getH();i++){
-      for(j=0;j<image->getW();j++){
-        if(channel=="Red"){
-          expandedMatrix[i][j] = (((double)(image->getRedValue(i,j)-image->getMinValues()[0])/(double)(image->getMaxVaules()[0]-image->getMinValues()[0]))
-                                   *(double)(cmax-cmin))+cmin;
-        }
-        else if(channel=="Green"){
-          expandedMatrix[i][j] = (((double)(image->getRedValue(i,j)-image->getMinValues()[1])/(double)(image->getMaxVaules()[1]-image->getMinValues()[1]))
-                                 *(double)(cmax-cmin))+cmin;
-        }
-        else if(channel=="Blue"){
-          expandedMatrix[i][j] = (((double)(image->getRedValue(i,j)-image->getMinValues()[2])/(double)(image->getMaxVaules()[2]-image->getMinValues()[2]))
-                                 *(double)(cmax-cmin))+cmin;
-        }
-      }
+  for(i=0;i<image->getH();i++){
+    for(j=0;j<image->getW();j++){
+      expandedMatrix[i][j] = (((double)(image->getChannelValue(i,j,index)-image->getMinValues()[index])/
+                               (double)(image->getMaxVaules()[index]-image->getMinValues()[index]))
+                               *(double)(cmax-cmin))+cmin;
     }
-    initializeVectorValues();
-    setFrequencies(expandedMatrix,image->getH(),image->getW());
-    bars2 = new QCPBars(qcustomPlot->xAxis, qcustomPlot->yAxis);
-    bars2->setWidth(1);
-    bars2->setPen(Qt::NoPen);
-    bars2->setBrush(QColor(0, 255, 0, 70));
-    bars2->setData(x, frequencies);
-    qcustomPlot->removePlottable(0);
-    qcustomPlot->addPlottable(bars2);
-    qcustomPlot->replot();
+  }
 
-    if(channel=="Red"){
-       image->setRed(expandedMatrix);
-    }
-    else if(channel=="Green"){
-       image->setGreen(expandedMatrix);
-    }
-    else if(channel=="Blue"){
-        image->setBlue(expandedMatrix);
-    }
+  initializeVectorValues();
+  setFrequencies(expandedMatrix,image->getH(),image->getW());
+  bars2 = new QCPBars(qcustomPlot->xAxis, qcustomPlot->yAxis);
+  bars2->setWidth(1);
+  bars2->setPen(Qt::NoPen);
+  bars2->setBrush(QColor(0, 255, 0, 70));
+  bars2->setData(x, frequencies);
+  qcustomPlot->removePlottable(0);
+  qcustomPlot->addPlottable(bars2);
+  qcustomPlot->replot();
 
-    for(i=0;i<image->getH();i++)
-      delete expandedMatrix[i];
+  imageAux->setChannel(expandedMatrix,index);
 
-    delete expandedMatrix;
+  for(i=0;i<image->getH();i++)
+    delete expandedMatrix[i];
+
+  delete expandedMatrix;
 }
 
-void Histogram::reduceHistogram(int cmax,int cmin,Image* image,QString channel){
+void Histogram::reduceHistogram(int cmax,int cmin,Image* image,Image* imageAux,int index){
   long i,j;
 
   int **reducedMatrix = new int*[image->getH()];
@@ -147,18 +135,9 @@ void Histogram::reduceHistogram(int cmax,int cmin,Image* image,QString channel){
 
   for(i=0;i<image->getH();i++){
     for(j=0;j<image->getW();j++){
-      if(channel=="Red"){
-        reducedMatrix[i][j] = (((double)(cmax-cmin)/(double)(image->getMaxVaules()[0]-image->getMinValues()[0]))
-                                 *(double)(image->getRedValue(i,j)-image->getMinValues()[0]))+cmin;
-      }
-      else if(channel=="Green"){
-        reducedMatrix[i][j] = (((double)(cmax-cmin)/(double)(image->getMaxVaules()[1]-image->getMinValues()[1]))
-                                 *(double)(image->getGreenValue(i,j)-image->getMinValues()[1]))+cmin;
-      }
-      else if(channel=="Blue"){
-        reducedMatrix[i][j] = (((double)(cmax-cmin)/(double)(image->getMaxVaules()[2]-image->getMinValues()[2]))
-                                *(double)(image->getBlueValue(i,j)-image->getMinValues()[2]))+cmin;
-      }
+      reducedMatrix[i][j] = (((double)(cmax-cmin)/
+                              (double)(image->getMaxVaules()[index]-image->getMinValues()[index]))
+                              *(double)(image->getChannelValue(i,j,index)-image->getMinValues()[index]))+cmin;
     }
   }
 
@@ -173,18 +152,10 @@ void Histogram::reduceHistogram(int cmax,int cmin,Image* image,QString channel){
   qcustomPlot->addPlottable(bars2);
   qcustomPlot->replot();
 
-  if(channel=="Red"){
-     image->setRed(reducedMatrix);
-  }
-  else if(channel=="Green"){
-     image->setGreen(reducedMatrix);
-  }
-  else if(channel=="Blue"){
-      image->setBlue(reducedMatrix);
-  }
+  imageAux->setChannel(reducedMatrix,index);
 
   for(i=0;i<image->getH();i++)
-    reducedMatrix[i]= new int[image->getW()];
+    delete reducedMatrix[i];
 
   delete reducedMatrix;
 }

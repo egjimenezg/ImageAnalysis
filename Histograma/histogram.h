@@ -17,8 +17,8 @@ class Histogram{
     QCustomPlot* qcustomPlot;
     QCPBars* bars2;
     void createHistogramForChanelOfTheImage(Image*,char);
-    void expandHistogram(int,int,Image*,QString);
-    void reduceHistogram(int,int,Image*,QString);
+    void expandHistogram(int,int,Image*,Image*,int);
+    void reduceHistogram(int,int,Image*,Image*,int);
 };
 
 #endif // HISTOGRAM_H

@@ -11,6 +11,7 @@ MainWindow::MainWindow(QWidget *parent) :
   ui->setupUi(this);  
   createActions();
   image = new Image();
+  auxImage = new Image();
 }
 
 MainWindow::~MainWindow(){
@@ -18,7 +19,7 @@ MainWindow::~MainWindow(){
 }
 
 void MainWindow::openImage(){
-  QString fileName = QFileDialog::getOpenFileName(this,tr("Abrir imagen"),QDir::currentPath());
+  QString fileName = QFileDialog::getOpenFileName(this,tr("Abrir imagen"),QDir::currentPath());  
   if(!fileName.isEmpty()){
     QImage* img = new QImage(fileName);
     if(img->isNull()){
@@ -26,19 +27,25 @@ void MainWindow::openImage(){
       return;
     }
     image->setImage(img);
+    auxImage->setImage(img);
+
     ui->imagew->setPixmap(QPixmap::fromImage(*img));
+    ui->finalImage->setPixmap(QPixmap::fromImage(*img));
+
     ui->imagew->adjustSize();
-    setRGBImages();
+    ui->finalImage->adjustSize();
+
+    setRGBImages(image);
     initializeHistograms();
   }
 }
 
-void MainWindow::setRGBImages(){
-  ui->imager->setPixmap(QPixmap::fromImage(image->getRGBImage('R')));
+void MainWindow::setRGBImages(Image* img){
+  ui->imager->setPixmap(QPixmap::fromImage(img->getRGBImage('R')));
   ui->imager->adjustSize();
-  ui->imageg->setPixmap(QPixmap::fromImage(image->getRGBImage('G')));
+  ui->imageg->setPixmap(QPixmap::fromImage(img->getRGBImage('G')));
   ui->imageg->adjustSize();
-  ui->imageb->setPixmap(QPixmap::fromImage(image->getRGBImage('B')));
+  ui->imageb->setPixmap(QPixmap::fromImage(img->getRGBImage('B')));
   ui->imageb->adjustSize();
 }
 
@@ -54,19 +61,23 @@ void MainWindow::initializeHistograms(){
 }
 
 void MainWindow::expandHistogram(){  
-   QString channel = ui->comboBox->currentText();   
+   int currentIndex = ui->comboBox->currentIndex();
    int cmax = ui->max->text().toInt();
    int cmin = ui->min->text().toInt();
-   histogramas[ui->comboBox->currentIndex()]->expandHistogram(cmax,cmin,image,channel);
-   ui->imagew->setPixmap(QPixmap::fromImage(image->getImage()));
+   histogramas[currentIndex]->expandHistogram(cmax,cmin,image,auxImage,currentIndex);
+   ui->finalImage->setPixmap(QPixmap::fromImage(auxImage->getImage()));
+   ui->finalImage->adjustSize();
+   setRGBImages(auxImage);
 }
 
 void MainWindow::reduceHistogram(){
-  QString channel = ui->comboBox->currentText();
+  int currentIndex = ui->comboBox->currentIndex();
   int cmax= ui->max->text().toInt();
-  int cmin= ui->max->text().toInt();
-  histogramas[ui->comboBox->currentIndex()]->reduceHistogram(cmax,cmin,image,channel);
-  ui->imagew->setPixmap(QPixmap::fromImage(image->getImage()));
+  int cmin= ui->min->text().toInt();
+  histogramas[currentIndex]->reduceHistogram(cmax,cmin,image,auxImage,currentIndex);
+  ui->finalImage->setPixmap(QPixmap::fromImage(auxImage->getImage()));
+  ui->finalImage->adjustSize();
+  setRGBImages(auxImage);
 }
 
 void MainWindow::createActions(){

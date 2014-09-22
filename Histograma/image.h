@@ -26,12 +26,11 @@ class Image{
     long getW();
     int* getMaxVaules();
     int* getMinValues();
+    void setChannel(int**,int);
     int** getRed();
-    void setRed(int**);
-    int** getGreen();
-    void setGreen(int**);
-    int** getBlue();
-    void setBlue(int**);
+    int** getGreen();    
+    int** getBlue();    
+    int getChannelValue(int,int,int);
     int getRedValue(int,int);
     int getGreenValue(int,int);
     int getBlueValue(int,int);

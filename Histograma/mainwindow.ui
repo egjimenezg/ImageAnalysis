@@ -253,6 +253,34 @@
      </property>
     </item>
    </widget>
+   <widget class="QLabel" name="finalImage">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>280</y>
+      <width>240</width>
+      <height>240</height>
+     </rect>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>240</width>
+      <height>240</height>
+     </size>
+    </property>
+    <property name="autoFillBackground">
+     <bool>true</bool>
+    </property>
+    <property name="lineWidth">
+     <number>86</number>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="scaledContents">
+     <bool>true</bool>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
@@ -269,7 +297,17 @@
     </property>
     <addaction name="actionOpen"/>
    </widget>
+   <widget class="QMenu" name="menuFiltros">
+    <property name="title">
+     <string>Filtros</string>
+    </property>
+    <addaction name="actionMedia"/>
+    <addaction name="actionMediana"/>
+    <addaction name="actionSal_y_Pimienta"/>
+    <addaction name="actionGaussiano"/>
+   </widget>
    <addaction name="menuFile"/>
+   <addaction name="menuFiltros"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -283,6 +321,26 @@
   <action name="actionOpen">
    <property name="text">
     <string>Open</string>
+   </property>
+  </action>
+  <action name="actionMedia">
+   <property name="text">
+    <string>Media</string>
+   </property>
+  </action>
+  <action name="actionMediana">
+   <property name="text">
+    <string>Moda</string>
+   </property>
+  </action>
+  <action name="actionSal_y_Pimienta">
+   <property name="text">
+    <string>Sal y Pimienta</string>
+   </property>
+  </action>
+  <action name="actionGaussiano">
+   <property name="text">
+    <string>Gaussiano</string>
    </property>
   </action>
  </widget>
