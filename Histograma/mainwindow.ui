@@ -297,23 +297,7 @@
     </property>
     <addaction name="actionOpen"/>
    </widget>
-   <widget class="QMenu" name="menuFiltros">
-    <property name="title">
-     <string>Filtros</string>
-    </property>
-    <addaction name="actionMedia"/>
-    <addaction name="actionMediana"/>
-    <addaction name="actionSal_y_Pimienta"/>
-   </widget>
-   <widget class="QMenu" name="menuRuido">
-    <property name="title">
-     <string>Ruido</string>
-    </property>
-    <addaction name="actionGaussiano_2"/>
-   </widget>
    <addaction name="menuFile"/>
-   <addaction name="menuFiltros"/>
-   <addaction name="menuRuido"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
