@@ -36,8 +36,6 @@ class Image{
     int getGreenValue(int,int);
     int getBlueValue(int,int);
     QImage getRGBImage(char);
-    void mediaFilter();
-    int getMediaValueFromMask(int[3][3]);
 
 };
 
