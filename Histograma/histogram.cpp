@@ -123,6 +123,23 @@ void Histogram::expandHistogram(int cmax,int cmin,Image* image,Image* imageAux,i
     delete expandedMatrix[i];
 
   delete expandedMatrix;
+
+  cout << "Frequencies" << endl;
+  for(i=0;i<this->frequencies.size();i++){
+    cout << i << ":"  << frequencies.at(i) << "  ";
+  }
+  cout << endl;
+
+  double accumulated = 0;
+  cout << "Probabilidad" << endl;
+
+  for(i=0;i<this->frequencies.size();i++){
+    if(accumulated>0)
+      accumulated += (double)frequencies.at(i)/(double)100;
+    cout << i << ":"  << accumulated << " ";
+  }
+  cout << endl;
+
 }
 
 void Histogram::reduceHistogram(int cmax,int cmin,Image* image,Image* imageAux,int index){
@@ -158,6 +175,22 @@ void Histogram::reduceHistogram(int cmax,int cmin,Image* image,Image* imageAux,i
     delete reducedMatrix[i];
 
   delete reducedMatrix;
+
+  cout << "Frequencies" << endl;
+  for(i=0;i<this->frequencies.size();i++){
+    cout << i << ":"  << frequencies.at(i) << "  ";
+  }
+  cout << endl;
+
+  double accumulated = 0;
+  cout << "Probabilidad" << endl;
+
+  for(i=0;i<this->frequencies.size();i++){
+    if(frequencies.at(i)>0)
+      accumulated += (double)frequencies.at(i)/(double)100;
+    cout << i << ":"  << accumulated << " ";
+  }
+  cout << endl;
 }
 
 void Histogram::setFrequencies(int** matrix,int H,int W){

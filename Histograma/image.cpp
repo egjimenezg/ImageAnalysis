@@ -42,8 +42,8 @@ void Image::setImage(QImage* image){
     delete minValues;
   }
 
-  H=image->height();
-  W=image->width();
+  H=10;
+  W=10;
 
   red = new int*[H];
   green = new int*[H];
@@ -57,8 +57,8 @@ void Image::setImage(QImage* image){
 
   initializeMinAndMaxValues();
 
-  for(y=0;y<image->height();y++){
-    for(x=0;x<image->width();x++){
+  for(y=0;y<H;y++){
+    for(x=0;x<W;x++){
       QColor color(image->pixel(x,y));
       maxValues[0] = max(color.red() ,maxValues[0]);
       maxValues[1] = max(color.blue() ,maxValues[1]);
