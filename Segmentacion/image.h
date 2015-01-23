@@ -1,12 +1,28 @@
 #ifndef IMAGE_H
 #define IMAGE_H
+#include <QMainWindow>
+#include <algorithm>
+#include <math.h>
 
+class Image{
+  
+  private:
+    int **red;
+    int **green;
+    int **blue;
+    long H;
+    long W;
 
-class image
-{
-public:
-    image();
-    ~image();
+  public:
+    Image();
+    ~Image();
+    void setImage(QImage*);
+    QImage getImage();
+    long getH();
+    long getW();
+    int getRedValue(int,int);
+    int getGreenValue(int,int);
+    int getBlueValue(int,int);
 };
 
 #endif // IMAGE_H
