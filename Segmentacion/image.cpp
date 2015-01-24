@@ -35,6 +35,9 @@ void Image::setImage(QImage* image){
     delete blue;
   }
 
+  H = image->height();
+  W = image->width();
+
   red = new int*[H];
   green = new int*[H];
   blue = new int*[H];
@@ -44,4 +47,37 @@ void Image::setImage(QImage* image){
     green[y] = new int[W]; 
     blue[y] = new int[W];
   }
+  
+  for(y=0;y<H;y++){
+    for(x=0;x<W;x++){
+      QColor color(image->pixel(x,y));
+      red[y][x] = color.red();
+      green[y][x] = color.green(); 
+      blue[y][x] = color.blue();
+    } 
+  }
 }
+
+QImage Image::getImage(){
+  long x,y;
+  QImage qimage(W,H,QImage::Format_RGB32);
+  QRgb value;
+  
+  for(y=0;y<H;y++){
+    for(x=0;x<W;x++){
+      value = qRgb(red[y][x],green[y][x],blue[y][x]);
+      qimage.setPixel(x,y,value);
+    }
+  }
+  
+  return qimage;
+}
+
+long Image::getH(){
+  return H;
+}
+
+long Image::getW(){
+  return W;
+}
+
