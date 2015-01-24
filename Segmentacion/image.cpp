@@ -1,5 +1,3 @@
-#ifndef IMAGE_H
-#define IMAGE_H
 #include "image.h"
 #include <QMainWindow>
 #include <iostream>
@@ -82,5 +80,3 @@ long Image::getH(){
 long Image::getW(){
   return W;
 }
-
-#endif // IMAGE_H
