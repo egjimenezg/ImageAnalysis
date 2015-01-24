@@ -3,6 +3,21 @@
 #define HEIGHT 20
 #define WIDTH 20
 
+typedef struct node{
+  int imageValue;
+  char label;
+  struct node *next;
+} Node;
+
+
+void initializeList(Node*);
+
+void initializeList(Node *head){
+  head = (Node*)malloc(sizeof(Node));
+  head->imageValue = 0;
+  head->next = NULL;
+}
+
 void printMatrix(int matrix[20][20]){
   long i,j;
   i=j=0;
@@ -17,7 +32,9 @@ void printMatrix(int matrix[20][20]){
 int main(){
   int i,j;
   i=j=0;
-  
+  Node *head; 
+  initializeList(head);
+
   int image[20][20] = {{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
                        {0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
                        {0,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0},
