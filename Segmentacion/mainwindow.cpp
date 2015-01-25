@@ -1,6 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QtWidgets>
+#include <iostream>
+using namespace std;
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),ui(new Ui::MainWindow){
   ui->setupUi(this);
@@ -23,10 +25,21 @@ void MainWindow::openImage(){
     } 
     image->setImage(img);
     ui->originalImage->setPixmap(QPixmap::fromImage(*img));
-    ui->originalImage->adjustSize(); 
+    ui->originalImage->adjustSize();
+    image->imageToBinary();
+    ui->editedImage->setPixmap(QPixmap::fromImage(image->getImage()));
+    ui->editedImage->adjustSize();
   }
+}
+
+void MainWindow::dilateImage(){
+  image->dilate();
+  ui->editedImage->setPixmap(QPixmap::fromImage(image->getImage()));
+  ui->editedImage->adjustSize();
+
 }
 
 void MainWindow::createActions(){
   connect(ui->actionOpen,SIGNAL(triggered()),this,SLOT(openImage()));
+  connect(ui->dilate,SIGNAL(released()),this,SLOT(dilateImage()));
 }

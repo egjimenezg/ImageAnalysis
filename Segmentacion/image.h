@@ -10,6 +10,7 @@ class Image{
     int **red;
     int **green;
     int **blue;
+    int **auxMatrix;
     long H;
     long W;
 
@@ -23,6 +24,8 @@ class Image{
     int getRedValue(int,int);
     int getGreenValue(int,int);
     int getBlueValue(int,int);
+    void imageToBinary();
+    void dilate();
 };
 
 #endif // IMAGE_H
