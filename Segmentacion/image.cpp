@@ -1,8 +1,5 @@
 #include "image.h"
 #include <QMainWindow>
-#include <iostream>
-
-using namespace std;
 
 Image::Image(){
   H = 0;
@@ -140,7 +137,7 @@ void Image::dilate(){
 void Image::erode(){
   int x,y,s,t;
   int e[3][3] = {{0,1,0},
-                 {1,1,1},
+                 {0,1,0},
                  {0,1,0}};
 
   for(y=0;y<H;y++){
@@ -175,4 +172,3 @@ void Image::setRGBMatrices(int** auxMatrix){
     }
   }
 }
-

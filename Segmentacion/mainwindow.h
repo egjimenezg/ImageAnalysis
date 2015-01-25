@@ -20,6 +20,8 @@ private slots:
     void openImage();
     void dilateImage();
     void erodeImage();
+    void openingImage();
+    void closingImage();
 
 private:
     Ui::MainWindow *ui;
@@ -27,6 +29,7 @@ private:
     void createActions();
     void init();
     void showButtons();
+    void renderImageInLabel();
 
 };
 
