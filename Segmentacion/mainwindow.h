@@ -17,7 +17,8 @@ public:
     ~MainWindow();
 
 private slots:
-    void openImage();    
+    void openImage();
+    void dilateImage();
 
 private:
     Ui::MainWindow *ui;
