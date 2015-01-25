@@ -19,6 +19,7 @@ public:
 private slots:
     void openImage();
     void dilateImage();
+    void erodeImage();
 
 private:
     Ui::MainWindow *ui;

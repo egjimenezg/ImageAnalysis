@@ -39,7 +39,14 @@ void MainWindow::dilateImage(){
 
 }
 
+void MainWindow::erodeImage(){
+  image->erode();
+  ui->editedImage->setPixmap(QPixmap::fromImage(image->getImage()));
+  ui->editedImage->adjustSize();
+}
+
 void MainWindow::createActions(){
   connect(ui->actionOpen,SIGNAL(triggered()),this,SLOT(openImage()));
   connect(ui->dilate,SIGNAL(released()),this,SLOT(dilateImage()));
+  connect(ui->erode,SIGNAL(released()),this,SLOT(erodeImage()));
 }

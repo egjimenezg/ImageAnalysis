@@ -133,21 +133,46 @@ void Image::dilate(){
     }
   }
 
-  for(y=0;y<H;y++){
-    for(x=0;x<W;x++){
-       red[y][x] = auxMatrix[y][x];
-       green[y][x] = auxMatrix[y][x];
-       blue[y][x] = auxMatrix[y][x];
-    }
-  }
+  setRGBMatrices(auxMatrix);
 
 }
 
-void Image::erosion(){
+void Image::erode(){
   int x,y,s,t;
   int e[3][3] = {{0,1,0},
                  {1,1,1},
                  {0,1,0}};
+
+  for(y=0;y<H;y++){
+    for(x=0;x<W;x++){
+      auxMatrix[y][x] = 0;
+      for(s=-1;s<=1;s++){
+        for(t=-1;t<=1;t++){
+          if(y+s >= 0 && y+s < H && x+t >= 0 && x+t < W){
+            if(e[s+1][t+1] == 1 && green[y+s][x+t] == 255){
+              auxMatrix[y][x]=255;
+            }
+          }
+        }
+        if(auxMatrix[y][x] == 255)
+          break;
+      }
+    }
+  }
+
+  setRGBMatrices(auxMatrix);
+
 }
 
+void Image::setRGBMatrices(int** auxMatrix){
+  long x,y;
+
+  for(y=0;y<H;y++){
+    for(x=0;x<W;x++){
+      red[y][x] = auxMatrix[y][x];
+      green[y][x] = auxMatrix[y][x];
+      blue[y][x] = auxMatrix[y][x];
+    }
+  }
+}
 

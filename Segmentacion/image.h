@@ -13,6 +13,7 @@ class Image{
     int **auxMatrix;
     long H;
     long W;
+    void setRGBMatrices(int**);
 
   public:
     Image();
@@ -26,6 +27,7 @@ class Image{
     int getBlueValue(int,int);
     void imageToBinary();
     void dilate();
+    void erode();
 };
 
 #endif // IMAGE_H
