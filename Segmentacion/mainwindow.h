@@ -25,6 +25,8 @@ private:
     Ui::MainWindow *ui;
     Image *image;
     void createActions();
+    void init();
+    void showButtons();
 
 };
 

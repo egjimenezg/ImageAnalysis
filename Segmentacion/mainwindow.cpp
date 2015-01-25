@@ -6,12 +6,23 @@ using namespace std;
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),ui(new Ui::MainWindow){
   ui->setupUi(this);
+  init();
   createActions();
   image = new Image();
 }
 
 MainWindow::~MainWindow(){
     delete ui;
+}
+
+void MainWindow::init(){
+  ui->dilate->setVisible(false);
+  ui->erode->setVisible(false);
+}
+
+void MainWindow::showButtons(){
+  ui->dilate->setVisible(true);
+  ui->erode->setVisible(true);
 }
 
 void MainWindow::openImage(){
@@ -29,6 +40,7 @@ void MainWindow::openImage(){
     image->imageToBinary();
     ui->editedImage->setPixmap(QPixmap::fromImage(image->getImage()));
     ui->editedImage->adjustSize();
+    showButtons();
   }
 }
 
