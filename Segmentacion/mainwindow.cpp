@@ -16,11 +16,15 @@ MainWindow::~MainWindow(){
 void MainWindow::init(){
   ui->dilate->setVisible(false);
   ui->erode->setVisible(false);
+  ui->opening->setVisible(false);
+  ui->closing->setVisible(false);
 }
 
 void MainWindow::showButtons(){
   ui->dilate->setVisible(true);
   ui->erode->setVisible(true);
+  ui->opening->setVisible(true);
+  ui->closing->setVisible(true);
 }
 
 void MainWindow::openImage(){
