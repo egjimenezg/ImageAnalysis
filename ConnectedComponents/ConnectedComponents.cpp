@@ -4,6 +4,23 @@
 #define WIDTH 10
 
 using namespace std;
+
+class Pixel{
+  private:
+    long x;
+    long y;
+
+  public:
+    Pixel(long,long);
+    long getX();
+    long getY();
+};
+
+Pixel::Pixel(long x,long y){
+  this->x=x;
+  this->y=y;
+}
+
 class Image{
   private:
     static const int dx[4];
@@ -12,12 +29,14 @@ class Image{
     int **aux; 
     int H;
     int W;
+    stack<Pixel> pixels;
     void depth_search(long,long,long); 
   public:
     Image();
     ~Image();
     void printAuxMatrix();
     void segmentation();
+    void findConnections(long,long,long);
     
 };
 
@@ -70,6 +89,20 @@ void Image::depth_search(long x,long y,long label){
 
 }
 
+void Image::findConnections(long x,long y,long label){
+  if(x<0 || x==H)
+    return;    
+  if(y<0 || y==W)
+    return;
+  if(aux[x][y] || image[x][y])
+    return;       
+  aux[x][y] = label;
+
+ for(int i=0;i<4;i++) 
+    //if(!image[x+dx[i]][y+dy[i]])    
+
+}
+
 void Image::printAuxMatrix(){
   for(int i=0;i<H;i++){
     for(int j=0;j<W;j++){
@@ -84,8 +117,9 @@ void Image::segmentation(){
   long label = 1000;
   for(i=0;i<H;i++){
     for(j=0;j<W;j++){
-      if(!aux[i][j] && !image[i][j])
-        depth_search(i,j,++label); 
+      if(!aux[i][j] && !image[i][j]){
+        //depth_search(i,j,++label); 
+      }
     } 
   }
 }
