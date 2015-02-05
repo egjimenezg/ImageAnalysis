@@ -155,6 +155,7 @@ void Image::erode(){
           if(y+s >= 0 && y+s < H && x+t >= 0 && x+t < W){
             if(e[s+1][t+1] == 1 && green[y+s][x+t] == 255){
               auxMatrix[y][x]=255;
+              break;
             }
           }
         }
@@ -204,16 +205,33 @@ void Image::showBorders(){
             if(e[s+1][t+1] == 1 && green[y+s][x+t] == 255){
               erodeMatrix[y][x]=255;
             }
-            if(e[s+1][t+1] == 1 && green[y+s][x+t] == 0){
-              dilateMatrix[y][x] = 0;
-              break;
+            else if(e[s+1][t+1] == 1 && green[y+s][x+t] == 0){
+              dilateMatrix[y][x] = 0;              
             }
           }
         }
-
       }
     }
   }
+
+  for(y=0;y<H;y++){
+    for(x=0;x<W;x++){
+      if(dilateMatrix[y][x] == 0 && erodeMatrix[y][x] == 255)
+        auxMatrix[y][x] = 0;
+      else
+       auxMatrix[y][x] = 255;
+    }
+  }
+
+  for(y=0;y<H;y++){
+    delete dilateMatrix[y];
+    delete erodeMatrix[y];
+  }
+
+  delete dilateMatrix;
+  delete erodeMatrix;
+
+  setRGBMatrices(auxMatrix);
 
 }
 
