@@ -22,6 +22,7 @@ void MainWindow::init(){
   ui->opening->setVisible(false);
   ui->closing->setVisible(false);
   ui->countButton->setVisible(false);
+  ui->border->setVisible(false);
 }
 
 void MainWindow::showButtons(){
@@ -30,6 +31,7 @@ void MainWindow::showButtons(){
   ui->opening->setVisible(true);
   ui->closing->setVisible(true);
   ui->countButton->setVisible(true);
+  ui->border->setVisible(true);
 }
 
 void MainWindow::openImage(){
@@ -72,6 +74,11 @@ void MainWindow::closingImage(){
   renderImageInLabel();
 }
 
+void MainWindow::showBorders(){
+  image->showBorders();
+  renderImageInLabel();
+}
+
 void MainWindow::renderImageInLabel(){
   ui->editedImage->setPixmap(QPixmap::fromImage(image->getImage()));
   ui->editedImage->adjustSize();
@@ -89,4 +96,5 @@ void MainWindow::createActions(){
   connect(ui->opening,SIGNAL(released()),this,SLOT(openingImage()));
   connect(ui->closing,SIGNAL(released()),this,SLOT(closingImage()));
   connect(ui->countButton,SIGNAL(released()),this,SLOT(countObjects()));
+  connect(ui->border,SIGNAL(released()),this,SLOT(showBorders()));
 }

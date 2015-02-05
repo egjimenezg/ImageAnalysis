@@ -175,6 +175,19 @@
      <string>Número de objetos</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="border">
+    <property name="geometry">
+     <rect>
+      <x>150</x>
+      <y>290</y>
+      <width>201</width>
+      <height>32</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Detección de bordes</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">

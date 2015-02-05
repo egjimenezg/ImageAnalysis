@@ -23,6 +23,7 @@ private slots:
     void openingImage();
     void closingImage();
     void countObjects();
+    void showBorders();
 
 private:
     Ui::MainWindow *ui;
