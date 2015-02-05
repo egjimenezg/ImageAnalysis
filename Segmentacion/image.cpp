@@ -1,5 +1,9 @@
 #include "image.h"
 #include <QMainWindow>
+#include <iostream>
+#include <vector>
+
+using namespace std;
 
 Image::Image(){
   H = 0;
@@ -21,6 +25,9 @@ Image::~Image(){
   delete auxMatrix;
 
 }
+
+const long Image::dy[4] = {1,0,-1,0};
+const long Image::dx[4] = {0,1,0,-1};
 
 void Image::setImage(QImage* image){
   long x,y;
@@ -208,6 +215,43 @@ void Image::showBorders(){
     }
   }
 
+}
 
+void Image::depth_first_search(long y,long x,long label){
+  if(y<0 || y==H)
+    return;
+  if(x<0 || x==W)
+    return;
+  if(auxMatrix[y][x] || green[y][x])
+    return;
 
+  auxMatrix[y][x] = label;
+
+  for(int k=0;k<4;k++)
+    depth_first_search(y+dy[k],x+dx[k],label);
+
+}
+
+void Image::segmentation(){
+   tags.clear();
+   long x,y;
+   long label = 1000;
+
+   long i,j;
+   for(i=0;i<H;i++)
+     for(j=0;j<W;j++)
+       auxMatrix[i][j] = 0;
+
+   for(y=0;y<H;y++){
+     for(x=0;x<W;x++){
+       if(!auxMatrix[y][x] && !green[y][x]){
+         depth_first_search(y,x,++label);
+         tags.push_back(label);
+       }
+     }
+   }
+}
+
+int Image::getObjectsNumber(){
+  return tags.size();
 }

@@ -1,6 +1,9 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QtWidgets>
+#include <iostream>
+
+using namespace std;
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),ui(new Ui::MainWindow){
   ui->setupUi(this);
@@ -18,6 +21,7 @@ void MainWindow::init(){
   ui->erode->setVisible(false);
   ui->opening->setVisible(false);
   ui->closing->setVisible(false);
+  ui->countButton->setVisible(false);
 }
 
 void MainWindow::showButtons(){
@@ -25,6 +29,7 @@ void MainWindow::showButtons(){
   ui->erode->setVisible(true);
   ui->opening->setVisible(true);
   ui->closing->setVisible(true);
+  ui->countButton->setVisible(true);
 }
 
 void MainWindow::openImage(){
@@ -37,7 +42,7 @@ void MainWindow::openImage(){
       return;
     } 
     image->setImage(img);
-    ui->originalImage->setPixmap(QPixmap::fromImage(*img));
+    ui->originalImage->setPixmap(QPixmap::fromImage(*img));    
     ui->originalImage->adjustSize();
     image->imageToBinary();
     renderImageInLabel();
@@ -72,10 +77,16 @@ void MainWindow::renderImageInLabel(){
   ui->editedImage->adjustSize();
 }
 
+void MainWindow::countObjects(){
+  image->segmentation();
+  ui->number->setText(QString::number(image->getObjectsNumber()));
+}
+
 void MainWindow::createActions(){
   connect(ui->actionOpen,SIGNAL(triggered()),this,SLOT(openImage()));
   connect(ui->dilate,SIGNAL(released()),this,SLOT(dilateImage()));
   connect(ui->erode,SIGNAL(released()),this,SLOT(erodeImage()));
   connect(ui->opening,SIGNAL(released()),this,SLOT(openingImage()));
   connect(ui->closing,SIGNAL(released()),this,SLOT(closingImage()));
+  connect(ui->countButton,SIGNAL(released()),this,SLOT(countObjects()));
 }

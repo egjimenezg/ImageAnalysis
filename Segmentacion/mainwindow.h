@@ -22,6 +22,7 @@ private slots:
     void erodeImage();
     void openingImage();
     void closingImage();
+    void countObjects();
 
 private:
     Ui::MainWindow *ui;
