@@ -28,6 +28,7 @@ class Image{
     void imageToBinary();
     void dilate();
     void erode();
+    void showBorders();
 };
 
 #endif // IMAGE_H

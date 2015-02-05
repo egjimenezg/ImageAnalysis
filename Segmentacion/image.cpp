@@ -172,3 +172,42 @@ void Image::setRGBMatrices(int** auxMatrix){
     }
   }
 }
+
+void Image::showBorders(){
+  int x,y,s,t;
+
+  int** dilateMatrix = new int*[H];
+  int** erodeMatrix = new int*[H];
+  int e[3][3] = {{0,1,0},
+                 {1,1,1},
+                 {0,1,0}};
+
+  for(y=0;y<H;y++){
+    dilateMatrix[y] = new int[W];
+    erodeMatrix[y] = new int[W];
+  }
+
+  for(y=0;y<H;y++){
+    for(x=0;x<W;x++){
+      dilateMatrix[y][x] = 255;
+      erodeMatrix[y][x] = 0;
+      for(s=-1;s<=1;s++){
+        for(t=-1;t<=1;t++){
+          if(y+s >= 0 && y+s < H && x+t >= 0 && x+t < W){
+            if(e[s+1][t+1] == 1 && green[y+s][x+t] == 255){
+              erodeMatrix[y][x]=255;
+            }
+            if(e[s+1][t+1] == 1 && green[y+s][x+t] == 0){
+              dilateMatrix[y][x] = 0;
+              break;
+            }
+          }
+        }
+
+      }
+    }
+  }
+
+
+
+}
