@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "image.h"
 
 namespace Ui {
   class MainWindow;
@@ -19,6 +20,7 @@ class MainWindow : public QMainWindow{
 
   private:
     Ui::MainWindow *ui;
+    void bindEvents();
 };
 
 #endif // MAINWINDOW_H

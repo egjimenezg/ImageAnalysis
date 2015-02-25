@@ -16,3 +16,7 @@ void MainWindow::openImage(){
 
 }
 
+void MainWindow::bindEvents(){
+  connect(ui->actionOpen,SIGNAL(triggered()),this,SLOT(openImage()));
+}
+
