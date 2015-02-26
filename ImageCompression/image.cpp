@@ -7,12 +7,12 @@
 
 using namespace std;
 
-const int Image::testImage[8][8] = {{15,20,15,15,20,35,15,20},
+const int Image::testImage[8][8] = {{15,20,15,15,20,25,15,20},
                                     {30,25,25,30,20,20,30,30},
                                     {35,30,35,40,40,30,25,30},
                                     {40,35,40,50,50,40,35,35},
                                     {40,40,50,45,45,55,50,40},
-                                    {40,50,55,50,55,60,55,45},
+                                    {45,50,55,50,55,60,55,45},
                                     {40,45,40,45,50,60,45,40},
                                     {30,35,25,25,30,35,30,20}};
 
@@ -48,6 +48,9 @@ void Image::setImageFrequencies(){
   }
 
   cout << frequencies.size() << endl;
+
+  for(std::map<int,int>::iterator it=frequencies.begin(); it!=frequencies.end(); ++it)
+    std::cout << it->first << " => " << it->second << endl;
 
 }
 
