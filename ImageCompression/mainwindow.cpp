@@ -1,14 +1,21 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QtWidgets>
-#include <iostream>
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow){
   ui->setupUi(this);
+  bindEvents();
+  init();
+  image->setImage();
+  image->setImageFrequencies();
 }
 
 MainWindow::~MainWindow(){
   delete ui;
+}
+
+void MainWindow::init(){
+  image = new Image();
 }
 
 void MainWindow::openImage(){
@@ -20,9 +27,9 @@ void MainWindow::openImage(){
       QMessageBox::information(this,tr("Image"),tr("El archivo %1 no es una imagen").arg(fileName));
       return;
     }
-    image->setImage(img);
-    ui->originalImage->setPixmap(QPixmap::fromImage(*img));
-    ui->originalImage->adjustSize();
+    /*image->setImage(img);
+    ui->originalImage->setPixmap(QPixmap::fromImage(image->getImage()));
+    ui->originalImage->adjustSize();*/
   }
 
 }

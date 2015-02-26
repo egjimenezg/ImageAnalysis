@@ -19,15 +19,30 @@
      <rect>
       <x>10</x>
       <y>10</y>
-      <width>331</width>
+      <width>300</width>
       <height>231</height>
      </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>150</width>
+      <height>150</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>300</width>
+      <height>16777215</height>
+     </size>
     </property>
     <property name="styleSheet">
      <string notr="true">background-color:rgb(127, 127, 127)</string>
     </property>
     <property name="text">
      <string/>
+    </property>
+    <property name="scaledContents">
+     <bool>true</bool>
     </property>
    </widget>
   </widget>

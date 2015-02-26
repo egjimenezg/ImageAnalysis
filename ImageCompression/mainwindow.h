@@ -22,6 +22,7 @@ class MainWindow : public QMainWindow{
     Ui::MainWindow *ui;
     Image *image;
     void bindEvents();
+    void init();
 };
 
 #endif // MAINWINDOW_H
