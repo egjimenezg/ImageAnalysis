@@ -20,6 +20,7 @@ class MainWindow : public QMainWindow{
 
   private:
     Ui::MainWindow *ui;
+    Image *image;
     void bindEvents();
 };
 
