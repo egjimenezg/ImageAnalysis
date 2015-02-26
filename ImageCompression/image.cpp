@@ -1,5 +1,21 @@
 #include "image.h"
 #include <QMainWindow>
+#include <map>
+#include <iostream>
+#define HEIGHT 8
+#define WIDTH 8
+
+using namespace std;
+
+const int Image::testImage[8][8] = {{15,20,15,15,20,35,15,20},
+                                    {30,25,25,30,20,20,30,30},
+                                    {35,30,35,40,40,30,25,30},
+                                    {40,35,40,50,50,40,35,35},
+                                    {40,40,50,45,45,55,50,40},
+                                    {40,50,55,50,55,60,55,45},
+                                    {40,45,40,45,50,60,45,40},
+                                    {30,35,25,25,30,35,30,20}};
+
 
 Image::Image(){
   H = 0;
@@ -22,10 +38,24 @@ Image::~Image(){
 
 }
 
-void Image::setImage(QImage *image){
+void Image::setImageFrequencies(){
+  int x,y; 
+   
+  for(x=0;x<H;x++){
+    for(y=0;y<W;y++){
+      frequencies[red[x][y]]++;
+    }
+  }
+
+  cout << frequencies.size() << endl;
+
+}
+
+//void Image::setImage(QImage *image){
+void Image::setImage(){
   long x,y;
 
-  if(H){
+  if(H > 0){
     for(x=0;x<H;x++){
       delete red[x];
       delete green[x];
@@ -39,8 +69,10 @@ void Image::setImage(QImage *image){
     delete auxMatrix;
   }
   
-  H = image->height();
-  W = image->width(); 
+  //H = image->height();
+  //W = image->width();
+  H = HEIGHT;
+  W = WIDTH;
 
   red = new int*[H];
   green = new int*[H];
@@ -56,12 +88,17 @@ void Image::setImage(QImage *image){
 
   for(x=0;x<H;x++){
     for(y=0;y<W;y++){
-      QColor color(image->pixel(x,y));
-      red[x][y] = color.red();
-      green[x][y] = color.green();
-      blue[x][y] = color.blue();
+      //QColor color(image->pixel(x,y));
+
+      //red[x][y] = color.red();
+      //green[x][y] = color.green();
+      //blue[x][y] = color.blue();
+      red[x][y] = testImage[x][y];
+      green[x][y] = testImage[x][y];
+      blue[x][y] = testImage[x][y];
     }
   }
+
 }
 
 
