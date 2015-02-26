@@ -16,7 +16,6 @@ class Image{
     long W;
     static const int testImage[8][8];
     map<int,int> frequencies;
-    map<int,float> probabilities;
 
   public:
     Image();
