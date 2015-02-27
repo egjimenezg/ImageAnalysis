@@ -11,11 +11,12 @@ class Image{
     int **red;
     int **green;
     int **blue;
-    int **auxMatrix;
+    int **auxMatrix;    
     long H;
     long W;
     static const int testImage[8][8];
-    map<int,int> frequencies;
+    map<int,long> frequencies;
+
    
   public:
     Image();

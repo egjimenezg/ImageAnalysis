@@ -3,6 +3,7 @@
 #include <QMainWindow>
 #include <map>
 #include <iostream>
+#include <vector>
 #define HEIGHT 8
 #define WIDTH 8
 
@@ -142,5 +143,9 @@ int Image::getBlueValue(int x,int y){
 }
 
 void Image::initCompression(){
-
+  HuffmanTree *tree = new HuffmanTree;
+  for(map<int,long>::iterator it=frequencies.begin();it!= frequencies.end();++it){
+    Node *node = new Node();
+  }
 }
+
