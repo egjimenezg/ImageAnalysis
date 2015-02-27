@@ -1,4 +1,5 @@
 #include "image.h"
+#include  "huffmantree.h"
 #include <QMainWindow>
 #include <map>
 #include <iostream>
@@ -138,4 +139,8 @@ int Image::getGreenValue(int x,int y){
 
 int Image::getBlueValue(int x,int y){
   return blue[x][y];
+}
+
+void Image::initCompression(){
+
 }

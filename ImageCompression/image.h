@@ -16,7 +16,7 @@ class Image{
     long W;
     static const int testImage[8][8];
     map<int,int> frequencies;
-
+   
   public:
     Image();
     ~Image();
@@ -29,5 +29,6 @@ class Image{
     int getGreenValue(int,int);
     int getBlueValue(int,int);
     void setImageFrequencies();
+    void initCompression();
 };
 #endif // IMAGE_H

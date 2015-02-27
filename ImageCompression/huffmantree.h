@@ -1,5 +1,6 @@
 #ifndef HUFFMANTREE_H
 #define HUFFMANTREE_H
+#include "node.h"
 
 class HuffmanTree{
   private:

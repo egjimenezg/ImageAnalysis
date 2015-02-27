@@ -8,6 +8,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
   init();
   image->setImage();
   image->setImageFrequencies();
+  image->initCompression();
 }
 
 MainWindow::~MainWindow(){
