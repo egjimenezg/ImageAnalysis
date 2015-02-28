@@ -5,6 +5,24 @@ Node::Node(int pixelValue,int frequency){
   this->frequency = frequency;
 }
 
+Node::Node(){}
+
+void Node::setLeft(Node* left){
+  this->left = left;
+}
+
+void Node::setRight(Node* right){
+  this->right = right;
+}
+
+Node* Node::getLeft(){
+  return left;
+}
+
+Node* Node::getRight(){
+  return right;
+}
+
 Node::~Node(){}
 
 void Node::setPixelValue(int pixelValue){

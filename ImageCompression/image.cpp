@@ -51,7 +51,7 @@ void Image::setImageFrequencies(){
 
   cout << frequencies.size() << endl;
 
-  for(std::map<int,int>::iterator it=frequencies.begin(); it!=frequencies.end(); ++it)
+  for(map<int,long>::iterator it=frequencies.begin(); it!=frequencies.end(); ++it)
     std::cout << it->first << " => " << it->second << endl;
 
 }
@@ -145,7 +145,17 @@ int Image::getBlueValue(int x,int y){
 void Image::initCompression(){
   HuffmanTree *tree = new HuffmanTree;
   for(map<int,long>::iterator it=frequencies.begin();it!= frequencies.end();++it){
-    Node *node = new Node();
+    Node *node = new Node(it->first,it->second);
+    tree->insertIntoQueue(node);
   }
+
+  for(int i=0;i<frequencies.size()-1;i++){
+    Node* node = new Node();
+    node->setLeft(tree->getMin());
+    node->setRight(tree->getMin());
+    node->setFrequency(node->getRight()->getFrequency()+node->getLeft()->getFrequency());
+    tree->insertIntoQueue(node);
+  }
+  tree->setRoot(tree->getMin());
 }
 

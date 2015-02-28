@@ -24,7 +24,15 @@ void HuffmanTree::insertIntoQueue(Node *node){
 }
 
 Node* HuffmanTree::getMin(){
-  Node* min = queue.back();
-  queue.pop_back();
+  Node *min = (*(queue.begin()));
+  queue.erase(queue.begin());
   return min;
+}
+
+void HuffmanTree::setRoot(Node* root){
+  this->root = root;
+}
+
+Node* HuffmanTree::getRoot(){
+  return root;
 }
