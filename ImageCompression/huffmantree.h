@@ -3,14 +3,16 @@
 #include "node.h"
 #include <vector>
 
+using namespace std;
+
 class HuffmanTree{
   private:    
-    vector<Node> queue;
+    vector<Node*> queue;
 
   public:
     HuffmanTree();
     ~HuffmanTree();
-    void insertIntoQueue(Node*);
+    void insertIntoQueue(Node *);
     Node* getMin();
 
 };
