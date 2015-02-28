@@ -5,12 +5,17 @@ class Node{
 
   private:
      int pixelValue;
-     int frequencie;
+     int frequency;
      float probability;
 
   public:
-    Node();
+    Node(int,int);
     ~Node();
+    void setPixelValue(int);
+    void setFrequency(int);
+    int getPixelValue();
+    int getFrequency();
+
 };
 
 #endif // NODE_H
