@@ -3,9 +3,14 @@
 Node::Node(int pixelValue,int frequency){
   this->pixelValue = pixelValue;
   this->frequency = frequency;
+  this->left = 0;
+  this->right = 0;
 }
 
-Node::Node(){}
+Node::Node(){
+  this->left = 0;
+  this->right = 0;
+}
 
 void Node::setLeft(Node* left){
   this->left = left;
