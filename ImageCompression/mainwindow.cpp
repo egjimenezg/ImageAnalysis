@@ -33,7 +33,6 @@ void MainWindow::openImage(){
 }
 
 void MainWindow::compressImage(){
-  image->setImageFrequencies();
   image->initCompression();
 }
 void MainWindow::bindEvents(){
