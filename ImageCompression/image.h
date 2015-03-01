@@ -2,6 +2,7 @@
 #define IMAGE_H
 #include <QMainWindow>
 #include <map>
+#include <string>
 
 using namespace std;
 
@@ -29,7 +30,11 @@ class Image{
     int getRedValue(int,int);
     int getGreenValue(int,int);
     int getBlueValue(int,int);
-    void setImageFrequencies();
+    void setImageFrequenciesRed();
+    void setImageFrequenciesGreen();
+    void setImageFrequenciesBlue();
+    void createCompressedImageFile();
+    map<int,string> getHuffmanCodes();
     void initCompression();
 };
 #endif // IMAGE_H

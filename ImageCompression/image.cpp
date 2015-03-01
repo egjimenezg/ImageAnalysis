@@ -3,7 +3,6 @@
 #include <QMainWindow>
 #include <iostream>
 #include <vector>
-#include <string>
 #include <iostream>
 #include <fstream>
 
@@ -40,15 +39,38 @@ Image::~Image(){
 
 }
 
-void Image::setImageFrequencies(){
+void Image::setImageFrequenciesRed(){
   int x,y; 
-   
+  frequencies.clear();
+
   for(x=0;x<H;x++){
     for(y=0;y<W;y++){
       frequencies[red[x][y]]++;
     }
   }
 
+}
+
+void Image::setImageFrequenciesGreen(){
+  int x,y;
+  frequencies.clear();
+
+  for(x=0;x<H;x++){
+    for(y=0;y<W;y++){
+      frequencies[green[x][y]]++;
+    }
+  }
+}
+
+void Image::setImageFrequenciesBlue(){
+  int x,y;
+  frequencies.clear();
+
+  for(x=0;x<H;x++){
+    for(y=0;y<W;y++){
+      frequencies[blue[x][y]]++;
+    }
+  }
 }
 
 void Image::setImage(QImage *image){
@@ -138,7 +160,12 @@ int Image::getBlueValue(int x,int y){
 }
 
 void Image::initCompression(){
+  createCompressedImageFile();
+}
+
+map<int,string> Image::getHuffmanCodes(){
   HuffmanTree *tree = new HuffmanTree;
+
   string codeword = "";
   for(map<int,long>::iterator it=frequencies.begin();it!= frequencies.end();++it){
     Node *node = new Node(it->first,it->second);
@@ -155,12 +182,51 @@ void Image::initCompression(){
   tree->setRoot(tree->getMin());
   tree->preOrden(tree->getRoot(),codeword);
   map<int,string> codewords = tree->getCodewords();
-  ofstream file("/Users/gamaliel/Desktop/keys.txt");
-
-  for(map<int,string>::iterator it=codewords.begin();it!=codewords.end();it++){
-    file << (*it).first << ":"<< (*it).second << "\n";
-  }
-  file.close();
+  return codewords;
 
 }
 
+void Image::createCompressedImageFile(){
+  ofstream file("/Users/gamaliel/Desktop/codewords.txt");
+  string redChannelString = "";
+  string greenChannelString = "";
+  string blueChannelString = "";
+  long x,y;
+
+  setImageFrequenciesRed();
+  map<int,string> codewordsRedChannel = getHuffmanCodes();
+  setImageFrequenciesGreen();
+  map<int,string> codewordsGreenChannel = getHuffmanCodes();
+  setImageFrequenciesBlue();
+  map<int,string> codewordsBlueChannel = getHuffmanCodes();
+
+
+  for(x=0;x<H;x++){
+    for(y=0;y<W;y++){
+      redChannelString += codewordsRedChannel[red[x][y]];
+      greenChannelString +=codewordsGreenChannel[green[x][y]];
+      blueChannelString += codewordsBlueChannel[blue[x][y]];
+    }
+  }
+
+  file << "RED" << endl;
+  for(map<int,string>::iterator it=codewordsRedChannel.begin();it!=codewordsRedChannel.end();it++)
+    file << (*it).first << ":"<< (*it).second << "\n";
+
+  file << redChannelString<< "\n";
+
+  file << "GREEN" << endl;
+
+  for(map<int,string>::iterator it=codewordsGreenChannel.begin();it!=codewordsGreenChannel.end();it++)
+    file << (*it).first << ":"<< (*it).second << "\n";
+
+  file << greenChannelString<< "\n";
+
+  file << "BLUE" << endl;
+  for(map<int,string>::iterator it=codewordsBlueChannel.begin();it!=codewordsBlueChannel.end();it++)
+    file << (*it).first << ":"<< (*it).second << "\n";
+
+  file << blueChannelString<< "\n";
+
+  file.close();
+}
