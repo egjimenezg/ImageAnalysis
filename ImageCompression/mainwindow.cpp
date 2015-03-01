@@ -5,10 +5,7 @@
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow){
   ui->setupUi(this);
   bindEvents();
-  init();
-  image->setImage();
-  image->setImageFrequencies();
-  image->initCompression();
+  init(); 
 }
 
 MainWindow::~MainWindow(){
@@ -28,14 +25,19 @@ void MainWindow::openImage(){
       QMessageBox::information(this,tr("Image"),tr("El archivo %1 no es una imagen").arg(fileName));
       return;
     }
-    /*image->setImage(img);
+    image->setImage(img);
     ui->originalImage->setPixmap(QPixmap::fromImage(image->getImage()));
-    ui->originalImage->adjustSize();*/
+    ui->originalImage->adjustSize();
   }
 
 }
 
+void MainWindow::compressImage(){
+  image->setImageFrequencies();
+  image->initCompression();
+}
 void MainWindow::bindEvents(){
   connect(ui->actionOpen,SIGNAL(triggered()),this,SLOT(openImage()));
+  connect(ui->compress,SIGNAL(released()),this,SLOT(compressImage()));
 }
 

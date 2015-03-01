@@ -21,8 +21,8 @@ class Image{
   public:
     Image();
     ~Image();
-    //void setImage(QImage*);
-    void setImage();
+    void setImage(QImage*);
+    //void setImage();
     QImage getImage();
     long getH();
     long getW();

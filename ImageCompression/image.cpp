@@ -1,11 +1,11 @@
 #include "image.h"
 #include  "huffmantree.h"
 #include <QMainWindow>
-#include <map>
 #include <iostream>
 #include <vector>
-#define HEIGHT 8
-#define WIDTH 8
+#include <string>
+#include <iostream>
+#include <fstream>
 
 using namespace std;
 
@@ -49,15 +49,10 @@ void Image::setImageFrequencies(){
     }
   }
 
-  cout << frequencies.size() << endl;
-
-  for(map<int,long>::iterator it=frequencies.begin(); it!=frequencies.end(); ++it)
-    std::cout << it->first << " => " << it->second << endl;
-
 }
 
-//void Image::setImage(QImage *image){
-void Image::setImage(){
+void Image::setImage(QImage *image){
+//void Image::setImage(){
   long x,y;
 
   if(H > 0){
@@ -74,10 +69,10 @@ void Image::setImage(){
     delete auxMatrix;
   }
   
-  //H = image->height();
-  //W = image->width();
-  H = HEIGHT;
-  W = WIDTH;
+  H = image->height();
+  W = image->width();
+  /*H = HEIGHT;
+  W = WIDTH;*/
 
   red = new int*[H];
   green = new int*[H];
@@ -93,14 +88,14 @@ void Image::setImage(){
 
   for(x=0;x<H;x++){
     for(y=0;y<W;y++){
-      //QColor color(image->pixel(x,y));
+      QColor color(image->pixel(y,x));
 
-      //red[x][y] = color.red();
-      //green[x][y] = color.green();
-      //blue[x][y] = color.blue();
-      red[x][y] = testImage[x][y];
+      red[x][y] = color.red();
+      green[x][y] = color.green();
+      blue[x][y] = color.blue();
+      /*red[x][y] = testImage[x][y];
       green[x][y] = testImage[x][y];
-      blue[x][y] = testImage[x][y];
+      blue[x][y] = testImage[x][y];*/
     }
   }
 
@@ -144,12 +139,13 @@ int Image::getBlueValue(int x,int y){
 
 void Image::initCompression(){
   HuffmanTree *tree = new HuffmanTree;
+  string codeword = "";
   for(map<int,long>::iterator it=frequencies.begin();it!= frequencies.end();++it){
     Node *node = new Node(it->first,it->second);
     tree->insertIntoQueue(node);
   }
 
-  for(int i=0;i<frequencies.size()-1;i++){
+  for(unsigned i=0;i<frequencies.size()-1;i++){
     Node* node = new Node();
     node->setLeft(tree->getMin());
     node->setRight(tree->getMin());
@@ -157,5 +153,14 @@ void Image::initCompression(){
     tree->insertIntoQueue(node);
   }
   tree->setRoot(tree->getMin());
+  tree->preOrden(tree->getRoot(),codeword);
+  map<int,string> codewords = tree->getCodewords();
+  ofstream file("/Users/gamaliel/Desktop/keys.txt");
+
+  for(map<int,string>::iterator it=codewords.begin();it!=codewords.end();it++){
+    file << (*it).first << ":"<< (*it).second << "\n";
+  }
+  file.close();
+
 }
 

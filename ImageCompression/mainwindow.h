@@ -17,6 +17,7 @@ class MainWindow : public QMainWindow{
 
   private slots:
     void openImage();
+    void compressImage();
 
   private:
     Ui::MainWindow *ui;
