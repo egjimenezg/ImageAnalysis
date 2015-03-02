@@ -1,5 +1,5 @@
 #include "image.h"
-#include <QMainWindow>s
+#include <QMainWindow>
 #include <iostream>
 #include <fstream>
 
@@ -118,6 +118,23 @@ QImage Image::getImage(){
   }
 
   return qImage;
+}
+
+void Image::readCodesFile(string path){
+  string line;
+  cout << path.c_str() << endl;
+
+  ifstream codesFile(path.c_str());
+  if(codesFile.is_open()){
+
+    while(getline(codesFile,line)){
+      cout << line << endl;
+    }
+    codesFile.close();
+  }
+  else
+    cout << "Unable to read file" << endl;
+
 }
 
 long Image::getH(){

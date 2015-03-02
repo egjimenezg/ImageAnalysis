@@ -8,6 +8,7 @@ using namespace std;
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
 ui(new Ui::MainWindow){
   ui->setupUi(this);
+  init();
   bindEvents();
 }
 
@@ -21,7 +22,7 @@ void MainWindow::init(){
 
 void MainWindow::openKeys(){
   QString fileName = QFileDialog::getOpenFileName(this,tr("Abrir imágen"),QDir::currentPath());
-
+  image->readCodesFile(fileName.toStdString());
 }
 
 void MainWindow::bindEvents(){
