@@ -17,6 +17,7 @@ class MainWindow : public QMainWindow{
 
   private slots:
     void openKeys();
+    void openImageFile();
 
   private:
     Ui::MainWindow *ui;
