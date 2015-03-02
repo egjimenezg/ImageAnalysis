@@ -187,7 +187,8 @@ map<int,string> Image::getHuffmanCodes(){
 }
 
 void Image::createCompressedImageFile(){
-  ofstream file("/Users/gamaliel/Desktop/codewords.txt");
+  ofstream codesFile("/Users/gamaliel/Desktop/codewords.txt");
+  ofstream imageFile("/Users/gamaliel/Desktop/image.txt");
   string redChannelString = "";
   string greenChannelString = "";
   string blueChannelString = "";
@@ -200,6 +201,17 @@ void Image::createCompressedImageFile(){
   setImageFrequenciesBlue();
   map<int,string> codewordsBlueChannel = getHuffmanCodes();
 
+  codesFile << "RED" << endl;
+  for(map<int,string>::iterator it=codewordsRedChannel.begin();it!=codewordsRedChannel.end();it++)
+    codesFile << (*it).first << ":"<< (*it).second << "\n";
+
+  codesFile << "GREEN" << endl;
+  for(map<int,string>::iterator it=codewordsGreenChannel.begin();it!=codewordsGreenChannel.end();it++)
+    codesFile << (*it).first << ":"<< (*it).second << "\n";
+
+  codesFile << "BLUE" << endl;
+  for(map<int,string>::iterator it=codewordsBlueChannel.begin();it!=codewordsBlueChannel.end();it++)
+    codesFile << (*it).first << ":"<< (*it).second << "\n";
 
   for(x=0;x<H;x++){
     for(y=0;y<W;y++){
@@ -207,26 +219,14 @@ void Image::createCompressedImageFile(){
       greenChannelString +=codewordsGreenChannel[green[x][y]];
       blueChannelString += codewordsBlueChannel[blue[x][y]];
     }
+    redChannelString +="\n";
+    greenChannelString += "\n";
+    blueChannelString += "\n";
   }
 
-  file << "RED" << endl;
-  for(map<int,string>::iterator it=codewordsRedChannel.begin();it!=codewordsRedChannel.end();it++)
-    file << (*it).first << ":"<< (*it).second << "\n";
+  imageFile << H << "\n" << W << "\n";
+  imageFile << redChannelString<< "\n" << greenChannelString<< "\n" << blueChannelString<< "\n";
 
-  file << redChannelString<< "\n";
-
-  file << "GREEN" << endl;
-
-  for(map<int,string>::iterator it=codewordsGreenChannel.begin();it!=codewordsGreenChannel.end();it++)
-    file << (*it).first << ":"<< (*it).second << "\n";
-
-  file << greenChannelString<< "\n";
-
-  file << "BLUE" << endl;
-  for(map<int,string>::iterator it=codewordsBlueChannel.begin();it!=codewordsBlueChannel.end();it++)
-    file << (*it).first << ":"<< (*it).second << "\n";
-
-  file << blueChannelString<< "\n";
-
-  file.close();
+  codesFile.close();
+  imageFile.close();
 }
