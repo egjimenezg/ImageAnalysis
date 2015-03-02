@@ -18,7 +18,10 @@ class Image{
     map<string,int> frequenciesRed;
     map<string,int> frequenciesGreen;
     map<string,int> frequenciesBlue;
-
+    void setFrequenciesFromFile(map<string,int>*,ifstream*,string);
+    void deleteColorMatrices();
+    void initializeColorMatrices();
+    void fillMatrixWithFile(map<string,int>*,ifstream*,int**);
 
   public:
     Image();
@@ -30,8 +33,9 @@ class Image{
     int getRedValue(int,int);
     int getGreenValue(int,int);
     int getBlueValue(int,int);
-    void readCodesFile(string path);
-    void setFrequenciesFromFile(map<string,int>*,ifstream*,string);
+    void readCodesFile(string);
+    void createImageFromFile(string);
+
 
 };
 #endif // IMAGE_H

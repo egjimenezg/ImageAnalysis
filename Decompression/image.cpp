@@ -27,6 +27,7 @@ Image::~Image(){
 
 }
 
+
 void Image::setImage(QImage *image){
   long x,y;
 
@@ -78,7 +79,7 @@ QImage Image::getImage(){
   QRgb value;
 
   for(x=0;x<H;x++){
-    for(y=0;y<W;y++){
+    for(y=0;y<W;y++){      
       value = qRgb(red[x][y],green[x][y],blue[x][y]);
       qImage.setPixel(y,x,value);
     }
@@ -88,7 +89,6 @@ QImage Image::getImage(){
 }
 
 void Image::readCodesFile(string path){
-
 
   ifstream codesFile(path.c_str());
 
@@ -103,6 +103,78 @@ void Image::readCodesFile(string path){
   else
     cout << "Unable to read file" << endl;
 
+}
+void Image::deleteColorMatrices(){
+  long x;
+
+  if(H > 0){
+    for(x=0;x<H;x++){
+      delete red[x];
+      delete green[x];
+      delete blue[x];
+      delete auxMatrix[x];
+    }
+
+    delete red;
+    delete green;
+    delete blue;
+    delete auxMatrix;
+  }
+}
+
+void Image::initializeColorMatrices(){
+  long x;
+
+  red = new int*[H];
+  green = new int*[H];
+  blue = new int*[H];
+  auxMatrix = new int*[H];
+
+  for(x=0;x<H;x++){
+    red[x] = new int[W];
+    green[x] = new int[W];
+    blue[x] = new int[W];
+    auxMatrix[x] = new int[W];
+  }
+}
+
+void Image::createImageFromFile(string pathToImageFile){
+  ifstream imageFile(pathToImageFile.c_str());
+  deleteColorMatrices();
+  string line;
+
+  if(imageFile.is_open()){
+    getline(imageFile,line);
+    H = atol(line.c_str());
+    getline(imageFile,line);
+    W = atol(line.c_str());
+    initializeColorMatrices();
+    fillMatrixWithFile(&frequenciesRed,&imageFile,red);
+    getline(imageFile,line);
+    fillMatrixWithFile(&frequenciesGreen,&imageFile,green);
+    getline(imageFile,line);
+    fillMatrixWithFile(&frequenciesBlue,&imageFile,blue);
+  }
+  imageFile.close();
+}
+
+void Image::fillMatrixWithFile(map<string,int>* frequencies,ifstream* imageFile,int** channelMatrix){
+  string line;
+  string substring = "";
+  long x,y=0,i;
+
+  for(x=0;x<H;x++){
+    getline(*imageFile,line);
+    for(i=0;i<line.size();i++){
+      substring += line.at(i);
+      if((*frequencies).find(substring) != (*frequencies).end()){
+         channelMatrix[x][y] = (*frequencies)[substring];
+         substring = "";
+         y++;
+      }
+    }
+    y = 0;
+  }
 }
 
 void Image::setFrequenciesFromFile(map<string,int>* frequencies,ifstream* codesFile,string channel){
