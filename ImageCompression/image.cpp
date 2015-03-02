@@ -187,7 +187,7 @@ map<int,string> Image::getHuffmanCodes(){
 }
 
 void Image::createCompressedImageFile(){
-  ofstream codesFile("/Users/gamaliel/Desktop/codewords.txt");
+  ofstream codesFile("/Users/gamaliel/Desktop/codewords.codes");
   ofstream imageFile("/Users/gamaliel/Desktop/image.txt");
   string redChannelString = "";
   string greenChannelString = "";
@@ -201,7 +201,6 @@ void Image::createCompressedImageFile(){
   setImageFrequenciesBlue();
   map<int,string> codewordsBlueChannel = getHuffmanCodes();
 
-  codesFile << "RED" << endl;
   for(map<int,string>::iterator it=codewordsRedChannel.begin();it!=codewordsRedChannel.end();it++)
     codesFile << (*it).first << ":"<< (*it).second << "\n";
 
