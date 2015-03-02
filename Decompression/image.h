@@ -33,6 +33,9 @@ class Image{
     int getRedValue(int,int);
     int getGreenValue(int,int);
     int getBlueValue(int,int);
+    int** getRed();
+    int** getGreen();
+    int** getBlue();
     void readCodesFile(string);
     void createImageFromFile(string);
 

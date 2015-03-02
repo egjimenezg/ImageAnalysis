@@ -213,3 +213,14 @@ int Image::getBlueValue(int x,int y){
   return blue[x][y];
 }
 
+int** Image::getRed(){
+  return red;
+}
+
+int** Image::getGreen(){
+  return green;
+}
+
+int** Image::getBlue(){
+  return blue;
+}
