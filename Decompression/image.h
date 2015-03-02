@@ -15,7 +15,9 @@ class Image{
     int **auxMatrix;
     long H;
     long W;
-    map<int,long> frequencies;
+    map<string,int> frequenciesRed;
+    map<string,int> frequenciesGreen;
+    map<string,int> frequenciesBlue;
 
 
   public:
@@ -29,9 +31,7 @@ class Image{
     int getGreenValue(int,int);
     int getBlueValue(int,int);
     void readCodesFile(string path);
-    void setImageFrequenciesRed();
-    void setImageFrequenciesGreen();
-    void setImageFrequenciesBlue();
+    void setFrequenciesFromFile(map<string,int>*,ifstream*,string);
 
 };
 #endif // IMAGE_H

@@ -2,6 +2,7 @@
 #include <QMainWindow>
 #include <iostream>
 #include <fstream>
+#include <stdlib.h>
 
 using namespace std;
 
@@ -24,40 +25,6 @@ Image::~Image(){
   delete blue;
   delete auxMatrix;
 
-}
-
-void Image::setImageFrequenciesRed(){
-  int x,y;
-  frequencies.clear();
-
-  for(x=0;x<H;x++){
-    for(y=0;y<W;y++){
-      frequencies[red[x][y]]++;
-    }
-  }
-
-}
-
-void Image::setImageFrequenciesGreen(){
-  int x,y;
-  frequencies.clear();
-
-  for(x=0;x<H;x++){
-    for(y=0;y<W;y++){
-      frequencies[green[x][y]]++;
-    }
-  }
-}
-
-void Image::setImageFrequenciesBlue(){
-  int x,y;
-  frequencies.clear();
-
-  for(x=0;x<H;x++){
-    for(y=0;y<W;y++){
-      frequencies[blue[x][y]]++;
-    }
-  }
 }
 
 void Image::setImage(QImage *image){
@@ -121,20 +88,37 @@ QImage Image::getImage(){
 }
 
 void Image::readCodesFile(string path){
-  string line;
-  cout << path.c_str() << endl;
+
 
   ifstream codesFile(path.c_str());
+
   if(codesFile.is_open()){
 
-    while(getline(codesFile,line)){
-      cout << line << endl;
-    }
+    setFrequenciesFromFile(&(this)->frequenciesRed,&codesFile,"GREEN");
+    setFrequenciesFromFile(&(this)->frequenciesGreen,&codesFile,"BLUE");
+    setFrequenciesFromFile(&(this)->frequenciesBlue,&codesFile,"\n");
+
     codesFile.close();
   }
   else
     cout << "Unable to read file" << endl;
 
+}
+
+void Image::setFrequenciesFromFile(map<string,int>* frequencies,ifstream* codesFile,string channel){
+  string line,key,value;
+  string delimiter = ":";
+  size_t indexDelimiter;
+
+  while(line != channel && getline(*codesFile,line)){
+    indexDelimiter = line.find(delimiter);
+
+    if(indexDelimiter!=string::npos){
+      key = line.substr(0,indexDelimiter);
+      value = line.substr(indexDelimiter+1);
+      (*frequencies)[value] = atoi(key.c_str());
+    }
+  }
 }
 
 long Image::getH(){
