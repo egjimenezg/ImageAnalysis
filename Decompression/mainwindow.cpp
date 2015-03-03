@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include <QtWidgets>
 #include <iostream>
+#include "histogram.h"
 
 using namespace std;
 
@@ -37,10 +38,16 @@ void MainWindow::openImageFile(){
     image->createImageFromFile(fileName.toStdString());
 
   ui->image->setPixmap(QPixmap::fromImage(image->getImage()));
-  ui->image->adjustSize();
+  ui->image->adjustSize();  
+  initializeHistogram();
 }
 
 void MainWindow::bindEvents(){
   connect(ui->codesButton,SIGNAL(released()),this,SLOT(openKeys()));
   connect(ui->openImage,SIGNAL(released()),this,SLOT(openImageFile()));
+}
+
+void MainWindow::initializeHistogram(){
+  Histogram *histogram = new Histogram(this,450,200);
+  histogram->createHistogramForChanelOfTheImage(image,'G');
 }

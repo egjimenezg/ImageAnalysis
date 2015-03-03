@@ -14,6 +14,7 @@ class MainWindow : public QMainWindow{
   public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
+    void initializeHistogram();
 
   private slots:
     void openKeys();
@@ -23,7 +24,7 @@ class MainWindow : public QMainWindow{
     Ui::MainWindow *ui;
     Image* image;
     void init();
-    void bindEvents();
+    void bindEvents();    
 };
 
 #endif // MAINWINDOW_H
